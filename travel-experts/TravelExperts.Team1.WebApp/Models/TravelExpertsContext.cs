@@ -9,7 +9,7 @@ namespace TravelExperts.Team1.WebApp.Models
         public TravelExpertsContext()
         {
         }
-        // marlon comment - delete
+        // New comment - DELETE
         public TravelExpertsContext(DbContextOptions<TravelExpertsContext> options)
             : base(options)
         {
