@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\asia.jpg" />
+    <None Remove="Images\caribbean.jpg" />
+    <None Remove="Images\europe.jpg" />
+    <None Remove="Images\polynesia.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="3.1.2" />
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.2-ci1465" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TravelExperts.Team1.WebApp\TravelExperts.Team1.WebApp.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\asia.jpg" />
+    <Resource Include="Images\caribbean.jpg" />
+    <Resource Include="Images\europe.jpg" />
+    <Resource Include="Images\polynesia.jpg" />
+  </ItemGroup>
+
+</Project>
