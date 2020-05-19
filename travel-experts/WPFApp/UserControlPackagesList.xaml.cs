@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MaterialDesignColors.Recommended;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -31,9 +32,20 @@ namespace WPFApp
             var packages = await GetPackages("https://localhost:44327/api/PackagesAPI");
             foreach (var package in packages)
             {
+                // Convert image name in PkgImage column to string path to find corresponding image
                 package.PkgImage = $"/Images/{package.PkgImage}.jpg";
+
+                DateTime EndDate = (DateTime)package.PkgEndDate;
+                String EndDateString = EndDate.ToShortDateString();
+                package.PkgEndDate = Convert.ToDateTime(EndDateString);
+
             }
             ListViewPackages.ItemsSource = packages;
+            
+        }
+        private void Package_Click(object sender, RoutedEventArgs e)
+        {
+            new UserControlPackageEdit();
         }
         private async Task<List<Packages>> GetPackages(string path)
         {

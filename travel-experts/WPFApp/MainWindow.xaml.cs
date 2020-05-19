@@ -47,11 +47,16 @@ namespace WPFApp
                     break;
                 case 1:
                     GridPrincipal.Children.Clear();
-                    GridPrincipal.Children.Add(new UserControlAddPackage());
+                    GridPrincipal.Children.Add(new UserControlPackagesList());
                     break;
                 case 2:
                     GridPrincipal.Children.Clear();
-                    GridPrincipal.Children.Add(new UserControlPackagesList());
+                    GridPrincipal.Children.Add(new UserControlAddPackage());
+                    break;
+
+                case 3:
+                    GridPrincipal.Children.Clear();
+                    GridPrincipal.Children.Add(new UserControlPackageEdit());
                     break;
                 default:
                     break;
