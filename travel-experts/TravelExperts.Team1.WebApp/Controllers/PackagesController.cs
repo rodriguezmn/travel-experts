@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +21,7 @@ namespace TravelExperts.Team1.WebApp.Controllers
         }
 
         // GET: Packages
+      //[Authorize(Roles ="Lidia.Goldchteine@edu.sait.ca")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Packages.ToListAsync());
@@ -148,5 +151,9 @@ namespace TravelExperts.Team1.WebApp.Controllers
         {
             return _context.Packages.Any(e => e.PackageId == id);
         }
+    }
+
+    internal class AuthorizationAttribute : Attribute
+    {
     }
 }

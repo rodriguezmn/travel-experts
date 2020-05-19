@@ -46,5 +46,7 @@ namespace TravelExperts.Team1.WebApp.Models
         [ForeignKey(nameof(RegionId))]
         [InverseProperty(nameof(Regions.BookingDetails))]
         public virtual Regions Region { get; set; }
+        //public Bookings CustomerId { get; set; }
+       // public virtual ICollection<Bookings> Bookings{ get; set; }
     }
 }

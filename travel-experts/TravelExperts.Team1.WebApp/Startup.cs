@@ -54,8 +54,9 @@ namespace TravelExperts.Team1.WebApp
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+          
             app.UseStaticFiles();
-
+            app.UseStatusCodePages();
             app.UseRouting();
 
             app.UseAuthentication();

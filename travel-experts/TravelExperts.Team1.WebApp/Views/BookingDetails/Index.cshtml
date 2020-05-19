@@ -1,0 +1,101 @@
+﻿@model IEnumerable<TravelExperts.Team1.WebApp.Models.BookingDetails>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ItineraryNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TripStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TripEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BasePrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgencyCommission)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Class)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductSupplier)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Region)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItineraryNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TripStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TripEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BasePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgencyCommission)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Booking.BookingId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Class.ClassId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fee.FeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductSupplier.ProductSupplierId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Region.RegionId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.BookingDetailId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.BookingDetailId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.BookingDetailId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -46,6 +46,20 @@ namespace TravelExperts.Team1.WebApp.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+            
+            [Required]
+            //[CustFirstName]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [Required]
+            //[CustFirstName]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -60,6 +74,34 @@ namespace TravelExperts.Team1.WebApp.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required(ErrorMessage = "Phone Number required!")]
+            [RegularExpression(@"([0-9]{3})[-]([0-9]{3})[-]([0-9]{4})",
+                   ErrorMessage = "Entered phone format is not valid.")]
+            //[DataType(DataType.PhoneNumber)]
+            //[EmailAddress]
+            [Display(Name = "Phone Number")]
+            public string PhoneNumber { get; set; }
+
+            [Required]
+            //[EmailAddress]
+            [Display(Name = "Address")]
+            public string Address { get; set; }
+
+            [Required]
+            //[EmailAddress]
+            [Display(Name = "City")]
+            public string City { get; set; }
+
+            [Required]
+            //[EmailAddress]
+            [Display(Name = "Province")]
+            public string Province { get; set; }
+            [Required(ErrorMessage = "Postal Code required!")]
+            [RegularExpression(@"([A-Z,0-9,A-Z]{3})[ ]([0-9,A-Z,0-9]{3})",
+                   ErrorMessage = "Entered postal code is not valid.")]
+            [Display(Name = "Postal Code")]
+            public string PostalCode { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
