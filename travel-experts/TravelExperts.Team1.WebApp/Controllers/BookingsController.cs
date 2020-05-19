@@ -35,7 +35,9 @@ namespace TravelExperts.Team1.WebApp.Controllers
                 CustomerId = Convert.ToInt32(a.Booking.CustomerId),
                 TripStart = a.TripStart,
                 TripEnd = a.TripEnd,
+                Destination = a.Destination,
                 BasePrice = a.BasePrice,
+                AgencyCommission=a.AgencyCommission,
                 Description = a.Description,
 
             }).ToList();
