@@ -5,11 +5,29 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFApp"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="WPFApp.UserControlPackageEdit"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"         
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Loaded="Window_Loaded">
+        <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+            <Grid Margin="0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Height="150" >
+                    <Label Content="Package Name" HorizontalAlignment="Center" FontSize="30" Margin="0 10" />
+                    <TextBox Text="{Binding Path=PackageName, Mode=TwoWay}"  FontSize="20" TextWrapping="Wrap" Width="300" Margin="0 10"/>
+                    <Label Content="{Binding Path=PackageName, Mode=TwoWay}" FontSize="20" Height="30"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Height="150">
+                    <Label Content="Package Name" HorizontalAlignment="Center" FontSize="30" Margin="0 10" />
+                    <TextBox Text="{Binding Path=PackageDesc, Mode=TwoWay}"  FontSize="20" TextWrapping="Wrap" Width="300" Margin="0 10"/>
+                </StackPanel>
+                <Button Grid.Row="2" Name="Reset" Height="40" FontSize="20" Click="Reset_Click">Reset</Button>
 
-        <materialDesign:Clock HorizontalAlignment="Left" Margin="216,0,0,0" VerticalAlignment="Center" Height="379"/>
-
+            </Grid>
+        </materialDesign:TransitioningContent>
     </Grid>
 </UserControl>

@@ -9,19 +9,23 @@
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel HorizontalAlignment="Left" Margin="10,10,0,10" Width="662">
-            <Label Content="Package Name" HorizontalAlignment="Center" FontSize="20" Margin="0 10" />
-            <TextBox Text="Name" TextWrapping="Wrap" Width="300" Margin="0 10"/>
-            <Label Content="Package Start" HorizontalAlignment="Center" FontSize="20" Margin="0 10" />
-            <DatePicker Width="300" Margin="0 10" />
-            <Label Content="Package End" HorizontalAlignment="Center" FontSize="20" Margin="0 10" />
-            <DatePicker Width="300" Margin="0 10" />
-            <Label Content="Description" HorizontalAlignment="Center" FontSize="20" Margin="0 10" />
-            <TextBox Text="Package Description" TextWrapping="Wrap" Width="300" Margin="0 10" mah:ValidationHelper.ShowValidationErrorOnMouseOver="True" mah:TextBoxHelper.IsSpellCheckContextMenuEnabled="True"/>
-            <!--<Button x:Name="ButtonQuit" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonQuit_Click">
-                <materialDesign:PackIcon Kind="PacMan"/>
-            </Button>-->
-            <TextBox Text="TextBox" TextWrapping="Wrap" Width="120"/>
-        </StackPanel>
+        <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+            <Grid>
+                <StackPanel HorizontalAlignment="Left" Margin="10,10,0,10" Width="662">
+                    <Label Content="Package Name" HorizontalAlignment="Center" FontSize="20" Margin="0 10" />
+                    <TextBox Text="Name" TextWrapping="Wrap" Width="300" Margin="0 10"/>
+                    <Label Content="Package Start" HorizontalAlignment="Center" FontSize="20" Margin="0 10" />
+                    <DatePicker Width="300" Margin="0 10" />
+                    <Label Content="Package End" HorizontalAlignment="Center" FontSize="20" Margin="0 10" />
+                    <DatePicker Width="300" Margin="0 10" />
+                    <Label Content="Description" HorizontalAlignment="Center" FontSize="20" Margin="0 10" />
+                    <TextBox Text="Package Description" TextWrapping="Wrap" Width="300" Margin="0 10" mah:ValidationHelper.ShowValidationErrorOnMouseOver="True" mah:TextBoxHelper.IsSpellCheckContextMenuEnabled="True"/>
+                    <!--<Button x:Name="ButtonQuit" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonQuit_Click">
+                        <materialDesign:PackIcon Kind="PacMan"/>
+                    </Button>-->
+                    <TextBox Text="TextBox" TextWrapping="Wrap" Width="120"/>
+                </StackPanel>
+            </Grid>
+        </materialDesign:TransitioningContent>
     </Grid>
 </UserControl>

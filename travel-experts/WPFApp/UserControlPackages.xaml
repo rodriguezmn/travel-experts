@@ -29,7 +29,7 @@
                         </TextBlock>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="R$ 25" VerticalAlignment="Center" Margin="10" FontSize="20" FontFamily="Champagne &amp; Limousines"/>
-                            <Button Width="100" Content="Leia Mais" FontFamily="Champagne &amp; Limousines" Margin="10"/>
+                            <Button Width="100" Content="Asia" FontFamily="Champagne &amp; Limousines" Margin="10"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -46,7 +46,7 @@
                         </TextBlock>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="R$ 27" VerticalAlignment="Center" Margin="10" FontSize="20" FontFamily="Champagne &amp; Limousines"/>
-                            <Button Width="100" Content="Leia Mais" FontFamily="Champagne &amp; Limousines" Margin="10"/>
+                            <Button Width="100" Content="Caribbean" FontFamily="Champagne &amp; Limousines" Margin="10"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -63,7 +63,7 @@
                         </TextBlock>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="R$ 28" VerticalAlignment="Center" Margin="10" FontSize="20" FontFamily="Champagne &amp; Limousines"/>
-                            <Button Width="100" Content="Leia Mais" FontFamily="Champagne &amp; Limousines" Margin="10"/>
+                            <Button Width="100" Content="Europe" FontFamily="Champagne &amp; Limousines" Margin="10"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -80,7 +80,7 @@
                         </TextBlock>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="R$ 28" VerticalAlignment="Center" Margin="10" FontSize="20" FontFamily="Champagne &amp; Limousines"/>
-                            <Button Width="100" Content="Leia Mais" FontFamily="Champagne &amp; Limousines" Margin="10"/>
+                            <Button Width="100" Content="Polynesia" FontFamily="Champagne &amp; Limousines" Margin="10"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

@@ -43,10 +43,6 @@ namespace WPFApp
             ListViewPackages.ItemsSource = packages;
             
         }
-        private void Package_Click(object sender, RoutedEventArgs e)
-        {
-            new UserControlPackageEdit();
-        }
         private async Task<List<Packages>> GetPackages(string path)
         {
             HttpClient client = new System.Net.Http.HttpClient();
