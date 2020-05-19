@@ -9,7 +9,7 @@ namespace TravelExperts.Team1.WebApp.Models
         public TravelExpertsContext()
         {
         }
-        
+
         public TravelExpertsContext(DbContextOptions<TravelExpertsContext> options)
             : base(options)
         {
@@ -18,7 +18,6 @@ namespace TravelExperts.Team1.WebApp.Models
         public virtual DbSet<Affiliations> Affiliations { get; set; }
         public virtual DbSet<Agencies> Agencies { get; set; }
         public virtual DbSet<Agents> Agents { get; set; }
-        public virtual DbSet<Authentication> Authentication { get; set; }
         public virtual DbSet<BookingDetails> BookingDetails { get; set; }
         public virtual DbSet<Bookings> Bookings { get; set; }
         public virtual DbSet<Classes> Classes { get; set; }
@@ -42,7 +41,7 @@ namespace TravelExperts.Team1.WebApp.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=SAIT221781\\SQLEXPRESS01;Initial Catalog=TravelExperts_Team1;Integrated Security=True");
+                optionsBuilder.UseSqlServer("Data Source=localhost\\SQLEXPRESS;Initial Catalog=TravelExperts_Team1;Integrated Security=True");
             }
         }
 
@@ -61,23 +60,6 @@ namespace TravelExperts.Team1.WebApp.Models
                     .WithMany(p => p.Agents)
                     .HasForeignKey(d => d.AgencyId)
                     .HasConstraintName("FK_Agents_Agencies");
-            });
-
-            modelBuilder.Entity<Authentication>(entity =>
-            {
-                entity.HasIndex(e => new { e.Username, e.Password })
-                    .HasName("UC_Auth")
-                    .IsUnique();
-
-                entity.Property(e => e.Password).IsUnicode(false);
-
-                entity.Property(e => e.Username).IsUnicode(false);
-
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.Authentication)
-                    .HasForeignKey(d => d.CustomerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_AuthenticationCustomers");
             });
 
             modelBuilder.Entity<BookingDetails>(entity =>

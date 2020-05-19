@@ -9,7 +9,6 @@ namespace TravelExperts.Team1.WebApp.Models
     {
         public Customers()
         {
-            Authentication = new HashSet<Authentication>();
             Bookings = new HashSet<Bookings>();
             CreditCards = new HashSet<CreditCards>();
             CustomersRewards = new HashSet<CustomersRewards>();
@@ -45,13 +44,17 @@ namespace TravelExperts.Team1.WebApp.Models
         [Required]
         [StringLength(50)]
         public string CustEmail { get; set; }
+        [Required]
+        [StringLength(16)]
+        public string Username { get; set; }
+        [Required]
+        [StringLength(16)]
+        public string Password { get; set; }
         public int? AgentId { get; set; }
 
         [ForeignKey(nameof(AgentId))]
         [InverseProperty(nameof(Agents.Customers))]
         public virtual Agents Agent { get; set; }
-        [InverseProperty("Customer")]
-        public virtual ICollection<Authentication> Authentication { get; set; }
         [InverseProperty("Customer")]
         public virtual ICollection<Bookings> Bookings { get; set; }
         [InverseProperty("Customer")]
