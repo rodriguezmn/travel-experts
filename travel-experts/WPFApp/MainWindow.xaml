@@ -6,15 +6,16 @@
         xmlns:local="clr-namespace:WPFApp"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="MainWindow" Height="450" Width="800">
+        Title="WPF App" Height="450" Width="800">
     <Grid Background="#FFEEEEEE" MouseDown="Grid_MouseDown">
         <StackPanel VerticalAlignment="Top">
             <Grid Background="#FF0069C0" Height="10"/>
-            <Grid Margin="5">
-                <TextBlock Text="Agents Portal" VerticalAlignment="Top" FontSize="50" HorizontalAlignment="Center" FontFamily="Champagne &amp; Limousines" Margin="20 0"/>
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <TextBlock Text="Agents Portal" VerticalAlignment="Top" FontSize="50" HorizontalAlignment="Left" FontFamily="Champagne &amp; Limousines" Margin="20 0"/>
-                    <!--<Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray">
+            <!--<Grid Margin="5">
+                --><!--<TextBlock Text="Agents Portal" VerticalAlignment="Top" FontSize="50" HorizontalAlignment="Center" FontFamily="Champagne &amp; Limousines" Margin="20 0"/>-->
+                <!--<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    -->
+                <!--<TextBlock Text="Agents Portal" VerticalAlignment="Top" FontSize="50" HorizontalAlignment="Left" FontFamily="Champagne &amp; Limousines" Margin="20 0"/>
+                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray">
                         <materialDesign:PackIcon Kind="FlightTakeoff"/>
                     </Button>
                     <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray">
@@ -23,7 +24,8 @@
                     <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray">
                         <materialDesign:PackIcon Kind="FlightTakeoff"/>
                     </Button>-->
-                </StackPanel>
+                <!--
+                </StackPanel>--><!--
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="10 0">
                     <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray">
                         <materialDesign:PackIcon Kind="BellOutline"/>
@@ -35,7 +37,7 @@
                         <materialDesign:PackIcon Kind="PacMan"/>
                     </Button>
                 </StackPanel>
-            </Grid>
+            </Grid>-->
         </StackPanel>
 
         <Grid Margin="250 55 0 0">
@@ -46,7 +48,7 @@
             <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
                 <Grid x:Name="GridCursor" Margin="0 100 0 0" Background="#FF0069C0" Width="10" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top"/>
             </materialDesign:TransitioningContent>
-            <ListView x:Name="ListViewMenu" Margin="0 100" Foreground="LightGray" FontFamily="Champagne &amp; Limousines" FontSize="18" SelectionChanged="ListViewMenu_SelectionChanged" SelectedIndex="0">
+            <ListView x:Name="ListViewMenu" Margin="0 100 0 70" Foreground="LightGray" FontFamily="Champagne &amp; Limousines" FontSize="18" SelectionChanged="ListViewMenu_SelectionChanged" SelectedIndex="0">
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Globe" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
@@ -55,14 +57,14 @@
                 </ListViewItem>
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Plus" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
-                        <TextBlock Text="Add New Package" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                        <materialDesign:PackIcon Kind="FormatListBulleted" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Packages List" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="FormatListBulleted" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
-                        <TextBlock Text="Packages List" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                        <materialDesign:PackIcon Kind="Plus" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Add New Package" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem Height="60">
@@ -84,7 +86,8 @@
                     </StackPanel>
                 </ListViewItem>
             </ListView>
-            <TextBox HorizontalAlignment="Left" Margin="58,39,0,0" Text="Agents Portal" FontSize="20" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Label HorizontalAlignment="Center" Margin="0,21,0,0" FontSize="30" Foreground="White" Content="Agents Portal" VerticalAlignment="Top" Width="200"/>
+            <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" VerticalAlignment="Bottom" Content="Quit" Click="ButtonQuit_Click" FontSize="17" Height="44" />
         </Grid>
 
     </Grid>
