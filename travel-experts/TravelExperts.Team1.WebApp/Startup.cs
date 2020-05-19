@@ -36,6 +36,7 @@ namespace TravelExperts.Team1.WebApp
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddTransient<TravelExpertsContext>();
+            
 
         }
 
