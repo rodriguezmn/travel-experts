@@ -26,6 +26,16 @@ namespace TravelExperts.Team1.WebApp.Controllers
             return filteredList;
         }
 
+        // Karim: To be revisted
+        //public List<Bookings> GetAllByBCustomerId(int id)
+        //{
+        //    var context = new TravelExpertsContext();
+        //    var listOfBookingDetails = context.BookingDetails.
+        //    Include(b => b.Booking).
+        //    Where(cid => cid.CustomerId == id);
+        //    return listOfBookingDetails.ToList();
+        //}
+
         public ActionResult Index()
         {
             var customerBookings = GetAllBookingDetails();

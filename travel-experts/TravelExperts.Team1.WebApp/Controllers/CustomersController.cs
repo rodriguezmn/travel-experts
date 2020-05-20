@@ -62,7 +62,7 @@ namespace TravelExperts.Team1.WebApp.Controllers
             {
                 _context.Add(customers);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index","BookingDetails");
+                return RedirectToAction("Index","Bookings");
             }
             //ViewData["AgentId"] = new SelectList(_context.Agents, "AgentId", "AgentId", customers.AgentId);
             return View(customers);
