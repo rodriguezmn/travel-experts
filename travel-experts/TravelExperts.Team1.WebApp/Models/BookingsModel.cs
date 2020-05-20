@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Added by Irada to make the Bookings View display the CustomerID & Total price to customers. Do not Delete!
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;

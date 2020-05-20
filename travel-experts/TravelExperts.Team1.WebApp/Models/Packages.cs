@@ -35,6 +35,6 @@ namespace TravelExperts.Team1.WebApp.Models
         [InverseProperty("Package")]
         public virtual ICollection<Bookings> Bookings { get; set; }
         [InverseProperty("Package")]
-        public virtual ICollection<PackagesProductsSuppliers> PackagesProductsSuppliers { get; set; }
+        public virtual ICollection<PackagesProductsSuppliers> PackagesProductsSuppliers { get; set; }      
     }
 }
