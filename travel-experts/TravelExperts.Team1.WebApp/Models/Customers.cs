@@ -48,7 +48,7 @@ namespace TravelExperts.Team1.WebApp.Models
         [StringLength(20)]
         public string CustHomePhone { get; set; }
         [Required]
-        [RegularExpression(@"([0-9]{3})[-]([0-9]{3})[-]([0-9]{4})",
+        [RegularExpression(@"([0-9]{10})",
             ErrorMessage = "Entered phone format is not valid.")]
         [Display(Name = "Phone Number")]
         [StringLength(20)]
@@ -64,7 +64,7 @@ namespace TravelExperts.Team1.WebApp.Models
         [Display(Name = "Password")]
         [StringLength(16)]
         public string Password { get; set; }
-
+        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
