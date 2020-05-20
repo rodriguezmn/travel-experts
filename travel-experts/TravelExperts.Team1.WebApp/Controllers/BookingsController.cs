@@ -15,7 +15,7 @@ namespace TravelExperts.Team1.WebApp.Controllers
         
         public ActionResult Index()
         {
-            var customerBookings = BookingManager.GetAllBookingDetails();
+            var customerBookings = BookingManager.GetAllByBCustomerId(143);
             var viewModels = customerBookings.Select(a => new BookingsViewModel
             {
                 BookingId = Convert.ToInt32(a.BookingId),

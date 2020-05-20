@@ -35,7 +35,7 @@ namespace TravelExperts.Team1.WebApp.Models
         public virtual DbSet<SupplierContacts> SupplierContacts { get; set; }
         public virtual DbSet<Suppliers> Suppliers { get; set; }
         public virtual DbSet<TripTypes> TripTypes { get; set; }
-
+        public BookingsViewModel BookingsViewModel { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -359,5 +359,7 @@ namespace TravelExperts.Team1.WebApp.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        
     }
 }

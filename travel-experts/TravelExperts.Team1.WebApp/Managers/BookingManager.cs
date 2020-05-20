@@ -25,15 +25,14 @@ namespace TravelExperts.Team1.WebApp.Managers
             return filteredList;
         }
 
-        // Karim: To be revisted
-        //public List<Bookings> GetAllByBCustomerId(int id)
-        //{
-        //    var context = new TravelExpertsContext();
-        //    var listOfBookingDetails = context.BookingDetails.
-        //    Include(b => b.Booking).
-        //    Where(cid => cid.CustomerId == id);
-        //    return listOfBookingDetails.ToList();
-        //}
+        public static List<BookingDetails> GetAllByBCustomerId(int id)
+        {
+            var context = new TravelExpertsContext();
+            var listOfBookingDetails = context.BookingDetails.
+            Include(b => b.Booking).
+            Where(c => c.Booking.CustomerId == id);
+            return listOfBookingDetails.ToList();
+        }
 
     }
 }
