@@ -10,6 +10,8 @@ namespace TravelExperts.Team1.WebApp.Models
         [Key]
         public int BookingDetailId { get; set; }
         public double? ItineraryNo { get; set; }
+    
+    
         [Column(TypeName = "datetime")]
         public DateTime? TripStart { get; set; }
         [Column(TypeName = "datetime")]
@@ -22,6 +24,7 @@ namespace TravelExperts.Team1.WebApp.Models
         public decimal? BasePrice { get; set; }
         [Column(TypeName = "money")]
         public decimal? AgencyCommission { get; set; }
+      
         public int? BookingId { get; set; }
         [StringLength(5)]
         public string RegionId { get; set; }
