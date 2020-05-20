@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFApp"
-        mc:Ignorable="d"
+        mc:Ignorable="d" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="WPF App" Height="450" Width="800">
     <Grid Background="#FFEEEEEE" MouseDown="Grid_MouseDown">
@@ -40,7 +40,7 @@
             </Grid>-->
         </StackPanel>
 
-        <Grid Margin="250 55 0 0">
+        <Grid Margin="250 0 0 0">
             <Grid x:Name="GridPrincipal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
 
@@ -51,13 +51,13 @@
             <ListView x:Name="ListViewMenu" Margin="0 100 0 70" Foreground="LightGray" FontFamily="Champagne &amp; Limousines" FontSize="18" SelectionChanged="ListViewMenu_SelectionChanged" SelectedIndex="0">
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Globe" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
-                        <TextBlock Text="Destinations" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                        <materialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Login" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="FormatListBulleted" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <materialDesign:PackIcon Kind="Globe" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="Packages List" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
@@ -87,7 +87,7 @@
                 </ListViewItem>
             </ListView>
             <Label HorizontalAlignment="Center" Margin="0,21,0,0" FontSize="30" Foreground="White" Content="Agents Portal" VerticalAlignment="Top" Width="200"/>
-            <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" VerticalAlignment="Bottom" Content="Quit" Click="ButtonQuit_Click" FontSize="17" Height="44" />
+            <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" VerticalAlignment="Bottom" Content="Quit" Click="ButtonQuit_Click" FontSize="17" Height="44" MouseDown="Grid_MouseDown" />
         </Grid>
 
     </Grid>

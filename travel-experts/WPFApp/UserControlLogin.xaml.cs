@@ -16,11 +16,18 @@ namespace WPFApp
     /// <summary>
     /// Interaction logic for UserControlPackages.xaml
     /// </summary>
-    public partial class UserControlPackages : UserControl
+    public partial class UserControlLogin : UserControl
     {
-        public UserControlPackages()
+        public UserControlLogin()
         {
             InitializeComponent();
+        }
+        public void loginButton_Click(object sender, EventArgs e)
+        {
+            if (usernameTextBox.Text=="" || passwordTextBox.Password=="")
+            {
+
+            }
         }
     }
 }

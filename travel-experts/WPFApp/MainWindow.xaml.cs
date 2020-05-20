@@ -43,7 +43,7 @@ namespace WPFApp
             {
                 case 0:
                     GridPrincipal.Children.Clear();
-                    GridPrincipal.Children.Add(new UserControlPackages());
+                    GridPrincipal.Children.Add(new UserControlLogin());
                     break;
                 case 1:
                     GridPrincipal.Children.Clear();

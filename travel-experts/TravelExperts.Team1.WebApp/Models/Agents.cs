@@ -26,6 +26,12 @@ namespace TravelExperts.Team1.WebApp.Models
         public string AgtEmail { get; set; }
         [StringLength(20)]
         public string AgtPosition { get; set; }
+        [Required]
+        [StringLength(16)]
+        public string Username { get; set; }
+        [Required]
+        [StringLength(16)]
+        public string Password { get; set; }
         public int? AgencyId { get; set; }
 
         [ForeignKey(nameof(AgencyId))]

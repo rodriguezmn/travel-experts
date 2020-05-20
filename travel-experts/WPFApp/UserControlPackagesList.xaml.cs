@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelExperts.Team1.WebApp.Models;
+using Microsoft.AspNetCore.Server;
 
 namespace WPFApp
 {
@@ -33,8 +36,16 @@ namespace WPFApp
             foreach (var package in packages)
             {
                 // Convert image name in PkgImage column to string path to find corresponding image
-                package.PkgImage = $"/Images/{package.PkgImage}.jpg";
+                var images = new List<string>{ "asia", "caribbean", "europe", "polynesia"};
 
+                if (images.Contains($"{package.PkgImage}"))
+                {
+                    package.PkgImage = $"/Images/{package.PkgImage}.jpg";
+                }
+                else
+                {
+                    package.PkgImage = $"/Images/default.jpg";
+                }
                 DateTime EndDate = (DateTime)package.PkgEndDate;
                 String EndDateString = EndDate.ToShortDateString();
                 package.PkgEndDate = Convert.ToDateTime(EndDateString);
