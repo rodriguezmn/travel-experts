@@ -34,6 +34,7 @@ namespace TravelExperts.Team1.WebApp.Models
         [InverseProperty(nameof(TripTypes.Bookings))]
         public virtual TripTypes TripType { get; set; }
         [InverseProperty("Booking")]
+       
         public virtual ICollection<BookingDetails> BookingDetails { get; set; }
     }
 }

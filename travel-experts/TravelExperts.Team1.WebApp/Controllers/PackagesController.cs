@@ -21,7 +21,7 @@ namespace TravelExperts.Team1.WebApp.Controllers
         }
 
         // GET: Packages
-      //[Authorize(Roles ="Lidia.Goldchteine@edu.sait.ca")]
+      //[Authorize(Roles ="Agents")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Packages.ToListAsync());
