@@ -40,7 +40,9 @@ namespace TravelExperts.Team1.WebApp.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //"Data Source = travelexperts - localhost\\SQLExpress; Initial Catalog = TravelExperts_Team1; Integrated Security = True"
+                //Azure Connection String: "Data Source=tcp:travelexperts-team1.database.windows.net,1433;Initial Catalog=TravelExperts_Team1;User ID=wintech@travelexperts-team1;Password=1qaz!QAZ"
+                //Local Host connection:  "Data Source = travelexperts - localhost\\SQLExpress; Initial Catalog = TravelExperts_Team1; Integrated Security = True"
+
                 optionsBuilder.UseSqlServer("Data Source=tcp:travelexperts-team1.database.windows.net,1433;Initial Catalog=TravelExperts_Team1;User ID=wintech@travelexperts-team1;Password=1qaz!QAZ");
                 //
             }
