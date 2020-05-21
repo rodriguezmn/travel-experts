@@ -10,34 +10,6 @@
     <Grid Background="#FFEEEEEE" MouseDown="Grid_MouseDown">
         <StackPanel VerticalAlignment="Top">
             <Grid Background="#FF0069C0" Height="10"/>
-            <!--<Grid Margin="5">
-                --><!--<TextBlock Text="Agents Portal" VerticalAlignment="Top" FontSize="50" HorizontalAlignment="Center" FontFamily="Champagne &amp; Limousines" Margin="20 0"/>-->
-                <!--<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    -->
-                <!--<TextBlock Text="Agents Portal" VerticalAlignment="Top" FontSize="50" HorizontalAlignment="Left" FontFamily="Champagne &amp; Limousines" Margin="20 0"/>
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray">
-                        <materialDesign:PackIcon Kind="FlightTakeoff"/>
-                    </Button>
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray">
-                        <materialDesign:PackIcon Kind="FlightTakeoff"/>
-                    </Button>
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray">
-                        <materialDesign:PackIcon Kind="FlightTakeoff"/>
-                    </Button>-->
-                <!--
-                </StackPanel>--><!--
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="10 0">
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray">
-                        <materialDesign:PackIcon Kind="BellOutline"/>
-                    </Button>
-                    <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" >
-                        <materialDesign:PackIcon Kind="Settings"/>
-                    </Button>
-                    <Button x:Name="ButtonQuit" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonQuit_Click">
-                        <materialDesign:PackIcon Kind="PacMan"/>
-                    </Button>
-                </StackPanel>
-            </Grid>-->
         </StackPanel>
 
         <Grid Margin="250 0 0 0">
@@ -48,7 +20,7 @@
             <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
                 <Grid x:Name="GridCursor" Margin="0 100 0 0" Background="#FF0069C0" Width="10" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top"/>
             </materialDesign:TransitioningContent>
-            <ListView x:Name="ListViewMenu" Margin="0 100 0 70" Foreground="LightGray" FontFamily="Champagne &amp; Limousines" FontSize="18" SelectionChanged="ListViewMenu_SelectionChanged" SelectedIndex="0">
+            <ListView x:Name="ListViewMenu" IsEnabled="{Binding Path=IsAuthenticated}"  Margin="0 100 0 70" Foreground="LightGray" FontFamily="Champagne &amp; Limousines" FontSize="18" SelectionChanged="ListViewMenu_SelectionChanged" SelectedIndex="0">
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
@@ -69,25 +41,52 @@
                 </ListViewItem>
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="AccountEdit" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <materialDesign:PackIcon Kind="Create" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="Edit Package" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Cash" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <materialDesign:PackIcon Kind="Layers" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="Products List" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="AccountStar" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <materialDesign:PackIcon Kind="AddToPhotos" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="Add Product" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="LayersSearch" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Edit Product" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="People" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Suppliers List" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="PeopleAdd" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Add Supplier" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="PersonOutline" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Edit Supplier" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
             </ListView>
             <Label HorizontalAlignment="Center" Margin="0,21,0,0" FontSize="30" Foreground="White" Content="Agents Portal" VerticalAlignment="Top" Width="200"/>
-            <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" VerticalAlignment="Bottom" Content="Quit" Click="ButtonQuit_Click" FontSize="17" Height="44" MouseDown="Grid_MouseDown" />
+            <StackPanel VerticalAlignment="Bottom">
+                <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" VerticalAlignment="Bottom" Content="Logout" Background="Red" Click="ButtonLogout_Click" FontSize="17" Height="44" MouseDown="Grid_MouseDown" />
+                <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" VerticalAlignment="Bottom" Content="Quit" Click="ButtonQuit_Click" FontSize="17" Height="44" MouseDown="Grid_MouseDown" />
+            </StackPanel>
         </Grid>
 
     </Grid>
