@@ -35,13 +35,13 @@ namespace TravelExperts.Team1.WebApp.Models
         public virtual DbSet<SupplierContacts> SupplierContacts { get; set; }
         public virtual DbSet<Suppliers> Suppliers { get; set; }
         public virtual DbSet<TripTypes> TripTypes { get; set; }
-
+        public BookingsViewModel BookingsViewModel { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=localhost\\SQLEXPRESS;Initial Catalog=TravelExperts_Team1;Integrated Security=True");
+                optionsBuilder.UseSqlServer("Data Source=localhost\\SQLExpress;Initial Catalog=TravelExperts_Team1;Integrated Security=True");
             }
         }
 
@@ -359,5 +359,7 @@ namespace TravelExperts.Team1.WebApp.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        
     }
 }

@@ -18,7 +18,7 @@ namespace TravelExperts.Team1.WebApp.Controllers
         {
             _logger = logger;
         }
-        //[Authorize(Roles = "Administrator")]
+        
         public IActionResult Index()
         {
             return View();
