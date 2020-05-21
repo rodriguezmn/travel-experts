@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TravelExperts.Team1.WebApp.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace TravelExperts.Team1.WebApp
 {
@@ -28,11 +29,20 @@ namespace TravelExperts.Team1.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // authentication 
+
+            services.
+                AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
+                AddCookie(opt => opt.LoginPath = "/Account/Login"); //if a user is redirected to Login action method in Customers Controller
+            //authentication
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddTransient<TravelExpertsContext>();
