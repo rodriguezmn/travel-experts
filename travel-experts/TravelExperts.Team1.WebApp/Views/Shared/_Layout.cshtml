@@ -44,7 +44,7 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Packages" asp-action="CurrentPackages">Packages</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Bookings" asp-action="Index">Bookings</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -52,7 +52,7 @@
         </nav>
     </header>
     <div class="jumbotron">
-        <div class="container body-content">
+        <div class="container container2 body-content">
             <h1 class = "jumbotron h1">Travel Experts</h1>
             @*<p><a href="~/Customer/Create" class="btn btn-primary btn-lg bg-info">Create an Account &raquo;</a></p>*@
             
@@ -67,11 +67,11 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - Travel    Experts - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Now.Year - Travel    Experts - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
