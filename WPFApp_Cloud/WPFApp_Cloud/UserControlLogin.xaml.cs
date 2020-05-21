@@ -35,26 +35,28 @@ namespace WPFApp_Cloud
             // Create new Agents object from input fields
             Agents inputAgent = new Agents { Username = usernameTextBox.Text, Password = passwordTextBox.Password };
 
-            // Make API call to get List of Agents
-            //var agents = await GetAgents("https://travelexperts.azurewebsites.net/api/AgentsAPI");
+            //Make API call to get List of Agents
+            var agents = await GetAgents("https://travelexperts.azurewebsites.net/api/AgentsAPI");
 
-            //// Check if new input Agent Object is in List of Agents from API Call
-            //if (agents.Find(a => a.Username == inputAgent.Username && a.Password == inputAgent.Password) != null)
-            //{
-            //    // Agents object found
-            //    statusTextBox.Text = "Success!";
-            //    statusTextBox.Foreground = Brushes.Green;
-            //    loginButton.Background = Brushes.Green;
-            //    MainWindow.IsAuthenticated = true;
-            //}
-            //else
-            //{
-            //    // no Agents object found
-            //    statusTextBox.Text = "Unable to Authenticate";
-            //    statusTextBox.Foreground = Brushes.Red;
-            //    loginButton.Background = Brushes.Red;
-            //    return;
-            //}
+            // Check if new input Agent Object is in List of Agents from API Call
+            if (agents.Find(a => a.Username == inputAgent.Username && a.Password == inputAgent.Password) != null)
+            {
+                // Agents object found
+                statusTextBox.Text = "Success!";
+                statusTextBox.Foreground = Brushes.Green;
+                loginButton.Background = Brushes.Green;
+                usernameTextBox.Text = "";
+                passwordTextBox.Password = "";
+                MainWindow.IsAuthenticated = true;
+            }
+            else
+            {
+                // no Agents object found
+                statusTextBox.Text = "Unable to Authenticate";
+                statusTextBox.Foreground = Brushes.Red;
+                loginButton.Background = Brushes.Red;
+                return;
+            }
         }
         private async Task<List<Agents>> GetAgents(string path)
         {

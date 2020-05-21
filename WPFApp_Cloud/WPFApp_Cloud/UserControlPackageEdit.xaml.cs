@@ -54,13 +54,13 @@ namespace WPFApp_Cloud
                 Packages selectedPackage = (Packages)packagesComboBox.SelectedItem;
                 int packageID = packageList.Find(p => p.PackageId == selectedPackage.PackageId).PackageId;
                 var package = await GetPackage("https://travelexperts.azurewebsites.net/api/PackagesAPI/" + packageID.ToString());
-                PackageName = package.PkgName;
-                PackageDesc = package.PkgDesc;
-                PackageStart = package.PkgStartDate;
-                PackageEnd = package.PkgEndDate;
-                PackagePrice = package.PkgBasePrice;
-                PackageImage = package.PkgImage;
-                PackageCommission = package.PkgAgencyCommission;
+                nameTextbox.Text = package.PkgName;
+                desc.Text = package.PkgDesc;
+                startDate.SelectedDate = package.PkgStartDate;
+                endDate.SelectedDate = package.PkgEndDate;
+                costTextbox.Text = package.PkgBasePrice.ToString();
+                image.Text = package.PkgImage;
+                commissionTextbox.Text = package.PkgAgencyCommission.ToString();
             }
             catch (Exception)
             {
