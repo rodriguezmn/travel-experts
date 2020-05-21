@@ -15,7 +15,7 @@
             <img class="card-img-top" src="~/img/@(Html.DisplayFor(modelItem => item.PkgImage)).jpg" alt="@Html.DisplayFor(modelItem => item.PkgImage)" />
             <div class="card-body lightcolor">
                 <h5 class="card-title">@Html.DisplayFor(modelItem => item.PkgName)</h5>
-                <p class="card-text price">@Html.DisplayFor(modelItem => item.PkgTotalPrice)</p>
+                <p class="card-text price"><strong>@Html.DisplayNameFor(model => model.PkgTotalPrice): </strong>@Html.DisplayFor(modelItem => item.PkgTotalPrice )</p>
                 <p class="card-text">@Html.DisplayFor(modelItem => item.PkgDesc)</p>
                 <p class="card-text dates">
                     <strong>@Html.DisplayNameFor(model => model.PkgStartDate):</strong> @Html.DisplayFor(modelItem => item.PkgStartDate)<br />
