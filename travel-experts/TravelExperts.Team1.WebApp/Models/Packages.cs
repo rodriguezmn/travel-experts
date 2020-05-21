@@ -18,6 +18,7 @@ namespace TravelExperts.Team1.WebApp.Models
         [Required]
         [StringLength(50)]
         public string PkgName { get; set; }
+        
         [Column(TypeName = "datetime")]
         public DateTime? PkgStartDate { get; set; }
         [Column(TypeName = "datetime")]

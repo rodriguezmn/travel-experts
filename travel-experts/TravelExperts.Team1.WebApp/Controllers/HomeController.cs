@@ -23,8 +23,8 @@ namespace TravelExperts.Team1.WebApp.Controllers
         {
             return View();
         }
+
         
-        [Authorize]
         public IActionResult Privacy()
         {
             return View();

@@ -33,6 +33,5 @@ namespace TravelExperts.Team1.WebApp.Managers
             Where(c => c.Booking.CustomerId == id);
             return listOfBookingDetails.ToList();
         }
-
     }
 }

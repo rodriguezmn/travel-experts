@@ -13,12 +13,15 @@ namespace TravelExperts.Team1.WebApp.Models
     {
         public int BookingId { get; set; }
         public int CustomerId { get; set; }
-       
+
+        [DisplayName("Itinerary No.")]
         public double? ItineraryNo { get; set; }
         public double? TravelerCount { get; set; }
-        [DisplayName("Trip Starts")] public DateTime? TripStart { get; set; }
+        [DisplayName("Trip Starts")] 
+        public DateTime? TripStart { get; set; }
 
-        [DisplayName("Trip Ends")] public DateTime? TripEnd { get; set; }
+        [DisplayName("Trip Ends")] 
+        public DateTime? TripEnd { get; set; }
 
         public string Destination { get; set; }
         public decimal? BasePrice { get; set; }

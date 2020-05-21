@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -11,7 +12,9 @@ using static TravelExperts.Team1.WebApp.Models.Domain;
 
 namespace TravelExperts.Team1.WebApp.Controllers
 {
-    // the account controller manages the authentication process
+    // Marlon Rodriguez
+    //  Programmed controller to manage the authentication process
+
     public class AccountController : Controller
     {
         public IActionResult Login(string returnUrl = null)
@@ -25,22 +28,34 @@ namespace TravelExperts.Team1.WebApp.Controllers
         public async Task<IActionResult> LoginAsync(User user)
         {
             // authenticate using the manager
+
             var usr = UserManager.Authenticate(user.Username, user.Password);
+
             // return if user object is returned
+
             if (usr == null) 
                 return View();
+
             //otherwise set up claims--one for each fact about the user 
+
             var claims = new List<Claim>() {
                 new Claim(ClaimTypes.Name, usr.Username),
                 new Claim("FullName", usr.Name),
-                //new Claim(ClaimTypes.Role, usr.Role)
+                new Claim(ClaimTypes.Sid, usr.Id.ToString())
             };
 
-            //create the instance of Claimsldentity (holds the claims) 
-            var claimsldentity = new ClaimsIdentity(claims, "Cookies"); 
+            //create the instance of Claimsldentity (holds the claims)
+            
+            var claimsldentity = new ClaimsIdentity(claims, "Cookies");
+
             //The signin creates the ClaimsPrincipal and cookie' 
-            await HttpContext.SignInAsync("Cookies", new ClaimsPrincipal(claimsldentity)); 
+
+            var claimsPrincipal = new ClaimsPrincipal(claimsldentity);
+
+            await HttpContext.SignInAsync("Cookies", claimsPrincipal); 
+
             //handle the return url value from TempData if it exists or not 
+
             if (TempData["ReturnUrl"] == null)
                 return RedirectToAction("Index", "Home"); 
             else 
@@ -55,7 +70,7 @@ namespace TravelExperts.Team1.WebApp.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        // Handles AccessDenied method call 
+        // handle AccessDenied method call 
         // when user is not authorized even though authenticated
 
         public IActionResult AccessDenied()
