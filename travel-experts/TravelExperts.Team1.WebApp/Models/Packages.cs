@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,9 +19,11 @@ namespace TravelExperts.Team1.WebApp.Models
         [Required]
         [StringLength(50)]
         public string PkgName { get; set; }
-        [Column(TypeName = "datetime")]
+        [Column(TypeName = "date")]
+        [DisplayName("Trip Starts")]
         public DateTime? PkgStartDate { get; set; }
-        [Column(TypeName = "datetime")]
+        [Column(TypeName = "date")]
+        [DisplayName("Trip Ends")]
         public DateTime? PkgEndDate { get; set; }
         [StringLength(50)]
         public string PkgDesc { get; set; }
