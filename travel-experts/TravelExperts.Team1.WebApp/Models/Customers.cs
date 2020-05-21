@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace TravelExperts.Team1.WebApp.Models
 {
@@ -81,4 +83,60 @@ namespace TravelExperts.Team1.WebApp.Models
         [InverseProperty("Customer")]
         public virtual ICollection<CustomersRewards> CustomersRewards { get; set; }
     }
+
+    //public class UserManager
+    //{
+    //    private readonly static List<Customers> _users;
+
+    //    static UserManager()
+    //    {
+    //        // create users list from database
+    //        _users = new List<Customers>();
+
+
+    //        //_users = new List<Customers>();
+    //        //_users.Add(new User
+    //        //{
+    //        //    Id = 1,
+    //        //    Username = "jdoe",
+    //        //    Password = "password",
+    //        //    FullName = "John Doe",
+    //        //    Role = "Manager"
+    //        //});
+    //        //_users.Add(new User
+    //        //{
+    //        //    Id = 2,
+    //        //    Username = "khunter",
+    //        //    Password = "password",
+    //        //    FullName = "Karen Hunter",
+    //        //    Role = "Staff"
+    //        //});
+    //    }
+
+    //    internal static object Authenticate(object userName, string password)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+
+    //    /// <summary>
+    //    /// User is authenticated based on credentials and a user returned if exists or null if not.
+    //    /// </summary>
+    //    /// <param name="username">Username as string</param>
+    //    /// <param name="password">Password as string</param>
+    //    /// <returns>A user object or null.</returns>
+    //    /// <remarks>
+    //    /// Add additional for the docs for this application--for developers.
+    //    /// </remarks>
+    //    public static Customers Authenticate(string username, string password)
+    //    {
+    //        var user = _users.SingleOrDefault(usr => usr.Username == username
+    //                                                && usr.Password == password);
+
+    //        return user; //this will either be null or an object
+    //    }
+
+
+
+       
+    //}
 }
