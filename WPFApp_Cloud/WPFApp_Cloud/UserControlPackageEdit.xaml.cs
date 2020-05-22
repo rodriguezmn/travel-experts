@@ -37,6 +37,9 @@ namespace WPFApp_Cloud
 
             // Make API call to collect List of Packages
             var packages = await GetPackages("https://travelexperts.azurewebsites.net/api/PackagesAPI");
+            var products = await GetProducts("https://travelexperts.azurewebsites.net/api/ProductsAPI");
+            productsList = products;
+            allListView.ItemsSource = productsList;
 
             // Store List of Packages in Class Property
             packageList = packages;
@@ -45,6 +48,8 @@ namespace WPFApp_Cloud
             packagesComboBox.ItemsSource = packages;
 
         }
+        private List<Products> productsList { get; set; }
+
         public async void ComboBox_Changed(object sender, EventArgs e)
         {
             // If API Get call fails, return. Otherwise populate fields with returned data
@@ -54,6 +59,8 @@ namespace WPFApp_Cloud
                 Packages selectedPackage = (Packages)packagesComboBox.SelectedItem;
                 int packageID = packageList.Find(p => p.PackageId == selectedPackage.PackageId).PackageId;
                 var package = await GetPackage("https://travelexperts.azurewebsites.net/api/PackagesAPI/" + packageID.ToString());
+                var productsForPackage = await GetProductsForPackage(packageID);
+                filteredListView.ItemsSource = productsForPackage;
                 nameTextbox.Text = package.PkgName;
                 desc.Text = package.PkgDesc;
                 startDate.SelectedDate = package.PkgStartDate;
@@ -135,32 +142,50 @@ namespace WPFApp_Cloud
                 // get selected package item from ComboBox and make Delete API call
                 Packages selectedPackage = (Packages)packagesComboBox.SelectedItem;
                 int packageID = packageList.Find(p => p.PackageId == selectedPackage.PackageId).PackageId;
-                var returnPackage = await DeletePackageAsync("https://travelexperts.azurewebsites.net/api/PackagesAPI", packageID);
-                if (returnPackage != null)
-                {
-                    // Delete package from packageList
-                    packageList.Remove(returnPackage);
-                    packagesComboBox.ItemsSource = packageList;
-                    packagesComboBox.SelectedItem = packageList[0];
+                //try
+                //{
+                //    bool deleteConstraint = await DeletePackagesProductsSuppliers(packageID);
+                //    if (!deleteConstraint)
+                //    {
+                //        statusTextBlock.Foreground = Brushes.Red;
+                //        statusTextBlock.Text = "Something went wrong. Please try Again!";
+                //        return;
+                //    }
+                    var returnPackage = await DeletePackageAsync("https://travelexperts.azurewebsites.net/api/PackagesAPI", packageID);
+                    if (returnPackage != null)
+                    {
+                        // Delete package from packageList
+                        packageList.Remove(returnPackage);
+                        packagesComboBox.ItemsSource = packageList;
+                        packagesComboBox.SelectedItem = packageList[0];
 
-                    // show success and clear
-                    statusTextBlock.Foreground = Brushes.Green;
-                    statusTextBlock.Text = $"Package '{returnPackage.PkgName}' Deleted!";
-                    nameTextbox.Text = "";
-                    startDate.SelectedDate = null;
-                    endDate.SelectedDate = null;
-                    image.Text = "";
-                    desc.Text = "";
-                    costTextbox.Text = "";
-                    commissionTextbox.Text = "";
-                    packagesComboBox.ItemsSource = packageList;
-                }
-                else
-                {
-                    // API Delete call failed
-                    statusTextBlock.Foreground = Brushes.Red;
-                    statusTextBlock.Text = "Unable to Delete Package!";
-                }
+                        // show success and clear
+                        statusTextBlock.Foreground = Brushes.Green;
+                        statusTextBlock.Text = $"Package '{returnPackage.PkgName}' Deleted!";
+                        nameTextbox.Text = "";
+                        startDate.SelectedDate = null;
+                        endDate.SelectedDate = null;
+                        image.Text = "";
+                        desc.Text = "";
+                        costTextbox.Text = "";
+                        commissionTextbox.Text = "";
+                        packagesComboBox.ItemsSource = packageList;
+                    }
+                    else
+                    {
+                        // API Delete call failed
+                        statusTextBlock.Foreground = Brushes.Red;
+                        statusTextBlock.Text = "Unable to Delete Package!";
+                    }
+                //}
+                //catch (Exception)
+                //{
+
+                //    statusTextBlock.Foreground = Brushes.Red;
+                //    statusTextBlock.Text = "Error Occured. Please Try Again!";
+                //}
+                
+
             }
             else
             {
@@ -319,6 +344,57 @@ namespace WPFApp_Cloud
             // return packages object List
             return pkgs;
         }
+        private async Task<List<Products>> GetProducts(string path)
+        {
+            // Get List of Products Objects from Get Request, path does not include ProductsID
+            HttpClient client = new System.Net.Http.HttpClient();
+            List<Products> pdts = null;
+            HttpResponseMessage response = await client.GetAsync(path);
+            if (response.IsSuccessStatusCode)
+            {
+                pdts = JsonConvert.DeserializeObject<List<Products>>(await response.Content.ReadAsStringAsync());
+            }
+            return pdts;
+        }
+        private async Task<List<Products>> GetProductsForPackage(int packageID)
+        {
+            HttpClient client = new System.Net.Http.HttpClient();
+
+            // Get List of Packages_Products_Suppliers Objects
+            List<PackagesProductsSuppliers> PPSFull = null;
+            HttpResponseMessage response = await client.GetAsync("https://travelexperts.azurewebsites.net/api/PackagesProductsSuppliersAPI");
+            if (response.IsSuccessStatusCode)
+            PPSFull = JsonConvert.DeserializeObject<List<PackagesProductsSuppliers>>(await response.Content.ReadAsStringAsync());
+
+            // Filter Packages_Products_Suppliers list by packageID
+            var PPSFiltered = PPSFull.FindAll(pps => pps.PackageId == packageID);
+
+            // Get List of Products_Suppliers Objects
+            List<ProductsSuppliers> productsSuppliersFull = null;
+            HttpResponseMessage responseFromProductsSuppliers = await client.GetAsync("https://travelexperts.azurewebsites.net/api/ProductsSuppliersAPI");
+            productsSuppliersFull = JsonConvert.DeserializeObject<List<ProductsSuppliers>>(await responseFromProductsSuppliers.Content.ReadAsStringAsync());
+
+            // Filter ProductsSuppliers List to include only the ones which are associated with the package
+            List<ProductsSuppliers> productsSuppliersFiltered = new List<ProductsSuppliers>();
+            foreach (var PackProdSup in PPSFiltered)
+            {
+                productsSuppliersFiltered.Add(productsSuppliersFull.Find(ps => ps.ProductSupplierId == PackProdSup.ProductSupplierId));
+            }
+
+            // Get List of Products
+            List<Products> productsFull = null;
+            HttpResponseMessage responseFromProducts = await client.GetAsync("https://travelexperts.azurewebsites.net/api/ProductsAPI");
+            productsFull = JsonConvert.DeserializeObject<List<Products>>(await responseFromProductsSuppliers.Content.ReadAsStringAsync());
+
+            // Filter Products List to include only the ones which are associated with the ProductSuppliers for the package
+            List<Products> productsFiltered = new List<Products>();
+            foreach (var ProdSup in productsSuppliersFiltered)
+            {
+                productsFiltered.Add(productsFull.Find(ps => ps.ProductId == ProdSup.ProductId));
+            }
+            return productsFiltered;
+        }
+
         private async Task<HttpStatusCode> PutPackageAsync(string path, Packages package)
         {
             // Instantiate HTTP Client
@@ -345,6 +421,43 @@ namespace WPFApp_Cloud
             // collect return package and return
             var returnPackage = JsonConvert.DeserializeObject<Packages>(await response.Content.ReadAsStringAsync());
             return returnPackage;
+        }
+        private async Task<bool> DeletePackagesProductsSuppliers(int packageID)
+        {
+            // Instantiate HTTP Client
+            HttpClient client = new System.Net.Http.HttpClient();
+
+            // Get All PackagesProductsSuppliers
+            List<PackagesProductsSuppliers> PPS = null;
+            HttpResponseMessage response = await client.GetAsync("https://travelexperts.azurewebsites.net/api/PackagesProductsSuppliersAPI");
+            PPS = JsonConvert.DeserializeObject<List<PackagesProductsSuppliers>>(await response.Content.ReadAsStringAsync());
+
+            // Filter PackagesProductsSuppliers list to get only those object whose packageID == input packageID
+            List<PackagesProductsSuppliers> filteredPPS = null;
+            filteredPPS = PPS.FindAll(pps => pps.PackageId == packageID);
+
+            // for each PPS in filtered List, make delete request for that package ID
+            var codes = new List<HttpStatusCode>();
+            foreach (var packProdSupp in filteredPPS)
+            {
+                HttpResponseMessage responsePackProdSupp = await client.DeleteAsync($"https://travelexperts.azurewebsites.net/api/PackagesProductsSuppliersAPI/{packProdSupp.PackageId},{packProdSupp.ProductSupplierId}");
+                codes.Add(responsePackProdSupp.StatusCode);
+            }
+
+            // return true if all succeeded, false if any failed
+            bool success = true;
+            foreach (var code in codes)
+            {
+                if (status == HttpStatusCode.Accepted || status == HttpStatusCode.OK || status == HttpStatusCode.NoContent)
+                {
+
+                }
+            }
+            if (status == HttpStatusCode.Accepted || status == HttpStatusCode.OK || status == HttpStatusCode.NoContent)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

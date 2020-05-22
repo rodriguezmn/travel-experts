@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPFApp_Cloud"
         mc:Ignorable="d" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="WPF App" Height="450" Width="800">
+        Title="Agents Portal" Height="450" Width="800">
     <Grid Background="#FFEEEEEE" MouseDown="Grid_MouseDown">
         <StackPanel VerticalAlignment="Top">
             <Grid Background="#FF0069C0" Height="10"/>

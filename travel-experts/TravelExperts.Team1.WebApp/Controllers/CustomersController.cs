@@ -11,7 +11,7 @@ using TravelExperts.Team1.WebApp.Models;
 namespace TravelExperts.Team1.WebApp.Controllers
 {
     // Karim Khan
-    // Programmed Customer Controller to signe up new customers and edit customer information
+    // Programmed Customer Controller to sign up new customers and edit customer information
     public class CustomersController : Controller
     {
         private readonly TravelExpertsContext _context;

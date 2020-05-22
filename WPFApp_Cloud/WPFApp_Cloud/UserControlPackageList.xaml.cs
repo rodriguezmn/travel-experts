@@ -25,7 +25,9 @@ namespace WPFApp_Cloud
             foreach (var package in packages)
             {
                 // Convert image name in PkgImage column to string path to find corresponding image
-                var images = new List<string>{ "asia", "caribbean", "europe", "polynesia"};
+                var images = new List<string>{ "asia", "caribbean", "europe", "polynesia", "goldengate", "camels", "hawaii", "Alex_arch", "Alex_lavender",
+                "Alex_sunflowers", "Alex_tree", "Alex-green", "beachvan", "blue-4145659_1920", "boatmountains", "bridge", "building", "compass", "mediterranean",
+                "mountainbeach", "mountains"};
 
                 // if package image tag is in the images list, replace that name with the path to the image
                 if (images.Contains($"{package.PkgImage}"))
