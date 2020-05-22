@@ -152,6 +152,10 @@ element {
     text-align: center;
 }
 
+.padding2_5 {
+    padding: 2.5px;
+}
+
 /* ------------Fade-in Animation-------------- */
 
 .animation-element.slide-up {
@@ -221,3 +225,4 @@ element {
     animation-name: slide-up;
     -webkit-animation-name: slide-up;
 }
+
