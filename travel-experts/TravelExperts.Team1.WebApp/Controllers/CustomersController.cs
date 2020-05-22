@@ -122,7 +122,7 @@ namespace TravelExperts.Team1.WebApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Bookings");
             }
             ViewData["AgentId"] = new SelectList(_context.Agents, "AgentId", "AgentId", customers.AgentId);
             return View(customers);
