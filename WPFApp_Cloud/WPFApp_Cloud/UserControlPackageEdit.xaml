@@ -44,6 +44,26 @@
                             <TextBox materialDesign:HintAssist.Hint="Base Price"  Text="{Binding Path=PackagePrice, Mode=TwoWay}" TextWrapping="Wrap" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Name="costTextbox" Width="300" Margin="0 10"  TextChanged="costTextbox_TextChanged" />
                             <TextBox x:Name="image" Text="{Binding Path=PackageImage, Mode=TwoWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Image Description" TextWrapping="Wrap" Width="300" Margin="0 10"/>
                             <TextBox x:Name="commissionTextbox" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="commissionTextbox_TextChanged" materialDesign:HintAssist.Hint="Agency Commision" Text="{Binding Path=PackageCommission, Mode=TwoWay}" TextWrapping="Wrap"  Width="300" Margin="0 10"/>
+                            <Label Content="Products for this Package" Width="300" HorizontalAlignment="Center" Margin="0 15 0 0"  />
+                            <ListView x:Name="filteredListView" SelectionMode="Multiple" Height="50" Width="300" >
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding ProdName}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <Label Content="Select New for this Package" Width="300" HorizontalAlignment="Center" Margin="0 15 0 0"  />
+                            <ListView x:Name="allListView" SelectionMode="Multiple" Height="200" Width="300" >
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding ProdName}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                             <StackPanel VerticalAlignment="Bottom" Width="300" Margin="0 20 0 0">
                                 <Button x:Name="editButton" Click="editSubmit_ClickAsync" Content="Edit Package" />
                                 <Button x:Name="deleteButton" Click="deleteSubmit_ClickAsync" Content="Delete Package" Background="Red" Margin="0 20 0 0" />

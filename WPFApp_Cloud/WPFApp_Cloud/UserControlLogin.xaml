@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Width="700" Height="450">
+    <Grid Width="750" Height="550">
         <Grid.Background>
             <ImageBrush ImageSource="Images/africa.jpg"  Stretch="Fill"/>
         </Grid.Background>
