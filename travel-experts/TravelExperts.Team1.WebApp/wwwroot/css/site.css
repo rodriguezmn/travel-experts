@@ -29,6 +29,7 @@ a {
 html {
   font-size: 14px;
 }
+
 @media (min-width: 700px) {
   html {
     font-size: 16px;
@@ -104,6 +105,10 @@ body {
     border-radius: 0;
 }
 
+.maxwidth {
+    width: 100vw;
+}
+
 .border-bottom {
     border-bottom: 1px solid #6ba3da !important;
 }
@@ -120,6 +125,10 @@ element {
     text-shadow: 4px 0px 5px #000;
     color: #fff;
     font-size: 80px;
+}
+
+.container2 {
+    padding: 20px;
 }
 
 .imghomebig {

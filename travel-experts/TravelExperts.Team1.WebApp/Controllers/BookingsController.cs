@@ -27,7 +27,7 @@ namespace TravelExperts.Team1.WebApp.Controllers
             // Marlon Rodriguez
             //  Called method to get CustomerId from Customers table
 
-            int userId = GetUserId(User.Identity.Name);
+            int userId = BookingManager.GetUserId(User.Identity.Name);
             
             var customerBookings = BookingManager.GetAllByBCustomerId(userId);
             var viewModels = customerBookings.Select(a => new BookingsViewModel
@@ -48,15 +48,7 @@ namespace TravelExperts.Team1.WebApp.Controllers
             return View(viewModels);
         }
 
-        // Marlon Rodriguez
-        //  Programmed method to get logged in user id from database
 
-        private int GetUserId(string userName)
-        {
-            var context = new TravelExpertsContext();
-            int userId = context.Customers.Where(u => u.Username == userName).
-                                           Select(u => u.CustomerId).FirstOrDefault();
-            return userId;
-        }
+        
     } 
     }

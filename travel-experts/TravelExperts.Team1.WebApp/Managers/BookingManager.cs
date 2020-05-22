@@ -33,5 +33,24 @@ namespace TravelExperts.Team1.WebApp.Managers
             Where(c => c.Booking.CustomerId == id);
             return listOfBookingDetails.ToList();
         }
+
+        // Marlon Rodriguez
+        //  Programmed method to get logged in user id from database
+        // Irada moved to BookingManager to be also used by Customer Controller
+        public static int GetUserId(string userName)
+        {
+            var context = new TravelExpertsContext();
+            int userId = context.Customers.Where(u => u.Username == userName).
+                                           Select(u => u.CustomerId).FirstOrDefault();
+            return userId;
+        }
+        // Irada - added a manager for FirstName grabber
+        public static string GetUserName(string userName)
+        {
+            var context = new TravelExpertsContext();
+            string userFirstName = context.Customers.Where(u => u.Username == userName).
+                                           Select(u => u.CustFirstName).FirstOrDefault();
+            return userFirstName;
+        }
     }
 }

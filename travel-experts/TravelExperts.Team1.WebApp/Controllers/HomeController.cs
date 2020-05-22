@@ -35,5 +35,11 @@ namespace TravelExperts.Team1.WebApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Get In Touch With Us";
+
+            return View();
+        }
     }
 }

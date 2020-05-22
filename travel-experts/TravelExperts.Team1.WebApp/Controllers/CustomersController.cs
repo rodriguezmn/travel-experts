@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using TravelExperts.Team1.WebApp.Managers;
 using TravelExperts.Team1.WebApp.Models;
 
 namespace TravelExperts.Team1.WebApp.Controllers
@@ -72,9 +73,12 @@ namespace TravelExperts.Team1.WebApp.Controllers
             return View(customers);
         }
 
+        
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            id = BookingManager.GetUserId(User.Identity.Name);
+
             if (id == null)
             {
                 return NotFound();
@@ -96,6 +100,8 @@ namespace TravelExperts.Team1.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CustomerId,CustFirstName,CustLastName,CustAddress,CustCity,CustProv,CustPostal,CustCountry,CustHomePhone,CustBusPhone,CustEmail,Username,Password,AgentId")] Customers customers)
         {
+            id = BookingManager.GetUserId(User.Identity.Name);
+
             if (id != customers.CustomerId)
             {
                 return NotFound();
