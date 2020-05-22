@@ -23,3 +23,13 @@
 ### Tested modules and gave my feedback
 
 ### Built final presentation
+
+## Jacobus Badenhorst
+
+### Built WPFApp_Cloud .NET Core App learning XAML and UI Design
+
+### Configured App to be stand alone with no dependancies using API's for database interaction in the cloud
+
+### Incorporated full CRUD functionality in with Packages, Products, and Suppliers requiring extensive debugging due to database and API Controller requirements
+
+### UX : All required Validation functional as per project requirements (startDate < Enddate, Cost > Commission, ) as well as Agents Authentication functionality (API)
