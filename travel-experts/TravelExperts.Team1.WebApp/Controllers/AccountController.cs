@@ -57,7 +57,7 @@ namespace TravelExperts.Team1.WebApp.Controllers
             //handle the return url value from TempData if it exists or not 
 
             if (TempData["ReturnUrl"] == null)
-                return RedirectToAction("Index", "Home"); 
+                return RedirectToAction("Index", "Bookings"); 
             else 
                 return Redirect(TempData["ReturnUrl"].ToString()); 
         }
