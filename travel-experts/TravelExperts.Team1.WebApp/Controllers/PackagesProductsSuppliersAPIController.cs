@@ -100,10 +100,10 @@ namespace TravelExperts.Team1.WebApp.Controllers
         }
 
         // DELETE: api/PackagesProductsSuppliersAPI/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<PackagesProductsSuppliers>> DeletePackagesProductsSuppliers(int id)
+        [HttpDelete("{id1},{id2}")]
+        public async Task<ActionResult<PackagesProductsSuppliers>> DeletePackagesProductsSuppliers(int id1, int id2)
         {
-            var packagesProductsSuppliers = await _context.PackagesProductsSuppliers.FindAsync(id);
+            var packagesProductsSuppliers = await _context.PackagesProductsSuppliers.FindAsync(id1, id2);
             if (packagesProductsSuppliers == null)
             {
                 return NotFound();

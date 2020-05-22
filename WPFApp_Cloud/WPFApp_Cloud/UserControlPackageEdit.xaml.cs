@@ -422,36 +422,42 @@ namespace WPFApp_Cloud
             var returnPackage = JsonConvert.DeserializeObject<Packages>(await response.Content.ReadAsStringAsync());
             return returnPackage;
         }
-        //private async Task<bool> DeletePackagesProductsSuppliers(int packageID)
-        //{
-        //    // Instantiate HTTP Client
-        //    HttpClient client = new System.Net.Http.HttpClient();
+        private async Task<bool> DeletePackagesProductsSuppliers(int packageID)
+        {
+            // Instantiate HTTP Client
+            HttpClient client = new System.Net.Http.HttpClient();
 
-        //    // Get All PackagesProductsSuppliers
-        //    List<PackagesProductsSuppliers> PPS = null;
-        //    HttpResponseMessage response = await client.GetAsync("https://travelexperts.azurewebsites.net/api/PackagesProductsSuppliersAPI");
-        //    PPS = JsonConvert.DeserializeObject<List<PackagesProductsSuppliers>>(await response.Content.ReadAsStringAsync());
+            // Get All PackagesProductsSuppliers
+            List<PackagesProductsSuppliers> PPS = null;
+            HttpResponseMessage response = await client.GetAsync("https://travelexperts.azurewebsites.net/api/PackagesProductsSuppliersAPI");
+            PPS = JsonConvert.DeserializeObject<List<PackagesProductsSuppliers>>(await response.Content.ReadAsStringAsync());
 
-        //    // Filter PackagesProductsSuppliers list to get only those object whose packageID == input packageID
-        //    List<PackagesProductsSuppliers> filteredPPS = null;
-        //    filteredPPS = PPS.FindAll(pps => pps.PackageId == packageID);
+            // Filter PackagesProductsSuppliers list to get only those object whose packageID == input packageID
+            List<PackagesProductsSuppliers> filteredPPS = null;
+            filteredPPS = PPS.FindAll(pps => pps.PackageId == packageID);
 
-        //    // for each PPS in filtered List, make delete request for that package ID
-        //    foreach (var packProdSupp in filteredPPS)
-        //    {
-        //        HttpResponseMessage responsePackProdSupp = await client.DeleteAsync("https://travelexperts.azurewebsites.net/api/PackagesProductsSuppliersAPI" + "/" + packProdSupp.);
-        //    }
+            // for each PPS in filtered List, make delete request for that package ID
+            var codes = new List<HttpStatusCode>();
+            foreach (var packProdSupp in filteredPPS)
+            {
+                HttpResponseMessage responsePackProdSupp = await client.DeleteAsync($"https://travelexperts.azurewebsites.net/api/PackagesProductsSuppliersAPI/{packProdSupp.PackageId},{packProdSupp.ProductSupplierId}");
+                codes.Add(responsePackProdSupp.StatusCode);
+            }
 
-        //    // make Delete Call to specific ID corresponding to Packages object passed in 
-        //    HttpResponseMessage response = await client.DeleteAsync("https://travelexperts.azurewebsites.net/api/PackagesProductsSuppliersAPI" + "/" + packageID);
+            // return true if all succeeded, false if any failed
+            bool success = true;
+            foreach (var code in codes)
+            {
+                if (status == HttpStatusCode.Accepted || status == HttpStatusCode.OK || status == HttpStatusCode.NoContent)
+                {
 
-        //    // return true if succeeded, false if failed
-        //    var status = response.StatusCode;
-        //    if (status == HttpStatusCode.Accepted || status == HttpStatusCode.OK || status == HttpStatusCode.NoContent)
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
+                }
+            }
+            if (status == HttpStatusCode.Accepted || status == HttpStatusCode.OK || status == HttpStatusCode.NoContent)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
