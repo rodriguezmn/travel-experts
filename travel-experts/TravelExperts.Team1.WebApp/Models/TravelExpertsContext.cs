@@ -41,9 +41,10 @@ namespace TravelExperts.Team1.WebApp.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(LocalDB)\\MSSQLLocalDB; Database=TravelExperts_Team1;Trusted_Connection=True;MultipleActiveResultSets=true");
+                optionsBuilder.UseSqlServer("Data Source=tcp:travelexperts-team1.database.windows.net,1433;Initial Catalog=TravelExperts_Team1;User ID=wintech@travelexperts-team1;Password=1qaz!QAZ;");
             }
         }
+        //Data Source=tcp:travelexperts-team1.database.windows.net,1433;Initial Catalog=TravelExperts_Team1;User ID=wintech@travelexperts-team1;Password=1qaz!QAZ;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
