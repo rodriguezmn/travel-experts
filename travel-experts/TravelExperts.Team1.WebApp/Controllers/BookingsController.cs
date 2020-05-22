@@ -52,7 +52,7 @@ namespace TravelExperts.Team1.WebApp.Controllers
 
             decimal? total = customerBookings.Select(t => t.BasePrice + t.AgencyCommission).Sum();
 
-            ViewBag.bookingsTotal = $"{total:N2}";
+            ViewBag.bookingsTotal = $"{total:N0}";
 
 
 
