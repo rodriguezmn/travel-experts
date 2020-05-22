@@ -40,33 +40,41 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            @*<td>
-            @Html.DisplayFor(modelItem => item.BookingId)
-        </td>*@
-            @*<td>
-                @Html.DisplayFor(modelItem => item.CustomerId)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.ItineraryNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TripStart)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TripEnd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Destination)
-            </td>
+            <tr>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.BookingId)
+                </td>*@
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItineraryNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TripStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TripEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Destination)
+                </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <th>
-                @Html.DisplayFor(modelItem => item.TotalPrice)
-            </th>
-        </tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <th>
+                    $@Html.DisplayFor(modelItem => item.TotalPrice)
+                </th>
+            </tr>
+
         }
+        @*Marlon Rodriguez
+            Added bookings total row to table*@  
+        <tr>
+            <td colspan="5"><h4>Bookings Total</h4></td>
+            <td><h4>$@ViewBag.bookingsTotal</h4></td>
+        </tr>
+
     </tbody>
 </table>

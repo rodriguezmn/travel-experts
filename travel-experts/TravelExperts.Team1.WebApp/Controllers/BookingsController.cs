@@ -25,7 +25,7 @@ namespace TravelExperts.Team1.WebApp.Controllers
         {
 
             // Marlon Rodriguez
-            //  Called method to get user Id
+            //  Called method to get CustomerId from Customers table
 
             int userId = BookingManager.GetUserId(User.Identity.Name);
             
@@ -45,6 +45,17 @@ namespace TravelExperts.Team1.WebApp.Controllers
                 TotalPrice= a.BasePrice + a.AgencyCommission
 
             }).ToList();
+
+
+            // Marlon Rodriguez
+            //  Get bookings total
+
+            decimal? total = customerBookings.Select(t => t.BasePrice + t.AgencyCommission).Sum();
+
+            ViewBag.bookingsTotal = $"{total:N2}";
+
+
+
             return View(viewModels);
         }
 
