@@ -161,6 +161,10 @@ element {
     margin-right: 1vw;
 }
 
+.margin-righ-1vw{
+    margin-right: 0.7vw;
+}
+
 /* ------------Fade-in Animation-------------- */
 
 .animation-element.slide-up {
