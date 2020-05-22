@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,9 +18,10 @@ namespace TravelExperts.Team1.WebApp.Models
         [DisplayName("Itinerary No.")]
         public double? ItineraryNo { get; set; }
         public double? TravelerCount { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [DisplayName("Trip Starts")] 
         public DateTime? TripStart { get; set; }
-
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [DisplayName("Trip Ends")] 
         public DateTime? TripEnd { get; set; }
 

@@ -45,6 +45,17 @@ namespace TravelExperts.Team1.WebApp.Controllers
                 TotalPrice= a.BasePrice + a.AgencyCommission
 
             }).ToList();
+
+
+            // Marlon Rodriguez
+            //  Get bookings total
+
+            decimal? total = customerBookings.Select(t => t.BasePrice + t.AgencyCommission).Sum();
+
+            ViewBag.bookingsTotal = $"{total:N2}";
+
+
+
             return View(viewModels);
         }
 
