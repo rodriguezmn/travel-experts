@@ -7,6 +7,8 @@ using System.Linq;
 
 namespace TravelExperts.Team1.WebApp.Models
 {
+    // Karim Khan
+    // Added User Authentication credentials to Customers Table
     public partial class Customers
     {
         public Customers()

@@ -8,9 +8,9 @@ namespace TravelExperts.Team1.WebApp.Models
     [Table("Packages_Products_Suppliers")]
     public partial class PackagesProductsSuppliers
     {
-        [Key]
+        [Key, Column(Order = 0)]
         public int PackageId { get; set; }
-        [Key]
+        [Key, Column(Order = 1)]
         public int ProductSupplierId { get; set; }
 
         [ForeignKey(nameof(PackageId))]
