@@ -226,3 +226,30 @@ element {
     -webkit-animation-name: slide-up;
 }
 
+/*Change background images*/
+
+@keyframes bg-change {
+    0% {
+        background-image: url('../img/Alex-sunflowers.jpg');
+    }
+
+    25% {
+        background-image: url('../img/Alex_lavender.jpg');
+    }
+
+    50% {
+        background-image: url('../img/camels.jpg');
+    }
+
+    75% {
+        background-image: url('../img/Alex_tree.jpg');
+    }
+
+    100% {S
+        background-image: url('../img/polynesia.jpg');
+    }
+}
+
+.bg-change-animation {
+    animation: bg-change 15s 5s infinite
+}
