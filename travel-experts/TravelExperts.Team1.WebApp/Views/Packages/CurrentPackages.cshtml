@@ -11,20 +11,22 @@
     @foreach (var item in Model)
     {
     <div class="col-md-4 col-sm-6">
-        <div class="card">
-            <img class="card-img-top" src="~/img/@(Html.DisplayFor(modelItem => item.PkgImage)).jpg" alt="@Html.DisplayFor(modelItem => item.PkgImage)" />
-            <div class="card-body lightcolor">
-                <h5 class="card-title">@Html.DisplayFor(modelItem => item.PkgName)</h5>
-                <p class="card-text price"><strong>@Html.DisplayNameFor(model => model.PkgTotalPrice): </strong>@Html.DisplayFor(modelItem => item.PkgTotalPrice )</p>
-                <p class="card-text">@Html.DisplayFor(modelItem => item.PkgDesc)</p>
-                <p class="card-text dates">
-                    <strong>@Html.DisplayNameFor(model => model.PkgStartDate):</strong> @Html.DisplayFor(modelItem => item.PkgStartDate)<br />
-                    <strong>@Html.DisplayNameFor(model => model.PkgEndDate):</strong> @Html.DisplayFor(modelItem => item.PkgEndDate)
-                </p>
+        <div class="animation-element slide-up">
+            <div class="card">
+                <img class="card-img-top" src="~/img/@(Html.DisplayFor(modelItem => item.PkgImage)).jpg" alt="@Html.DisplayFor(modelItem => item.PkgImage)" />
+                <div class="card-body lightcolor">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.PkgName)</h5>
+                    <p class="card-text price"><strong>@Html.DisplayNameFor(model => model.PkgTotalPrice): </strong>@Html.DisplayFor(modelItem => item.PkgTotalPrice)</p>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.PkgDesc)</p>
+                    <p class="card-text dates">
+                        <strong>@Html.DisplayNameFor(model => model.PkgStartDate):</strong> @Html.DisplayFor(modelItem => item.PkgStartDate)<br />
+                        <strong>@Html.DisplayNameFor(model => model.PkgEndDate):</strong> @Html.DisplayFor(modelItem => item.PkgEndDate)
+                    </p>
 
+                </div>
             </div>
+            <br />
         </div>
-        <br />
     </div>
-    }           
+    }
 </div>

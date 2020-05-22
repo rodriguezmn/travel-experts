@@ -52,7 +52,7 @@
         </nav>
     </header>
     <div class="jumbotron">
-        <div class="container container2 body-content">
+        <div class="container container2 body-content .bg-change-animation">
             <h1 class = "jumbotron h1">Travel Experts</h1>
             @*<p><a href="~/Customer/Create" class="btn btn-primary btn-lg bg-info">Create an Account &raquo;</a></p>*@
             
@@ -70,9 +70,6 @@
             &copy; @DateTime.Now.Year - Travel    Experts - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/js/scripts.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+
 </body>
 </html>
