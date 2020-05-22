@@ -40,6 +40,8 @@ namespace WPFApp_Cloud
                 Suppliers selectedSupplier = (Suppliers)suppliersComboBox.SelectedItem;
                 int supplierID = supplierList.Find(p => p.SupplierId == selectedSupplier.SupplierId).SupplierId;
                 var supplier = await GetSupplier("https://travelexperts.azurewebsites.net/api/SuppliersAPI/" + supplierID.ToString());
+                var products = await GetProductsFromSupplier(selectedSupplier);
+                myListView.ItemsSource = products;
                 nameTextbox.Text = supplier.SupName;
             }
             catch (Exception)
@@ -189,6 +191,33 @@ namespace WPFApp_Cloud
             HttpResponseMessage response = await client.DeleteAsync(path + "/" + supplierID);
             var returnSupplier = JsonConvert.DeserializeObject<Suppliers>(await response.Content.ReadAsStringAsync());
             return returnSupplier;
+        }
+        private async Task<List<Products>> GetProductsFromSupplier(Suppliers supplier)
+        {
+            HttpClient client = new System.Net.Http.HttpClient();
+
+            // Get Supplier object
+            HttpResponseMessage responseSupplier = await client.GetAsync("https://travelexperts.azurewebsites.net/api/SuppliersAPI/" + supplier.SupplierId.ToString());
+            var supplierObject = JsonConvert.DeserializeObject<Suppliers>(await responseSupplier.Content.ReadAsStringAsync());
+
+            // Get ProductsSuppliers Objects
+            HttpResponseMessage responseProductSuppliersList = await client.GetAsync("https://travelexperts.azurewebsites.net/api/ProductsSuppliersAPI");
+            List<ProductsSuppliers> productsSuppliersListFull = JsonConvert.DeserializeObject<List<ProductsSuppliers>>(await responseProductSuppliersList.Content.ReadAsStringAsync());
+
+            // Filter List by Supplier object from previous call
+            var productsSuppliersList = productsSuppliersListFull.FindAll(ps => ps.SupplierId == supplierObject.SupplierId);
+            List<int> productIdList = new List<int>();
+            foreach (var product in productsSuppliersList)
+            {
+                productIdList.Add(product.ProductId);
+            }
+
+            // get list of products
+            HttpResponseMessage responseProductsList = await client.GetAsync("https://travelexperts.azurewebsites.net/api/ProductsAPI");
+            List<Products> productsListFull = JsonConvert.DeserializeObject<List<Products>>(await responseProductsList.Content.ReadAsStringAsync());
+            var productsList = productsListFull.FindAll(p => productIdList.Contains(p.ProductId));
+
+            return productsList;
         }
     }
 }

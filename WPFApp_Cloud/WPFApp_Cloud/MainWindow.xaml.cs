@@ -42,7 +42,7 @@ namespace WPFApp_Cloud
         }
 
         // Used for Authentication. Default value is false
-        public static bool IsAuthenticated { get; set; } = false;
+        public static bool IsAuthenticated { get; set; } = true;
         public void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // If User is not Authenticated, show Login View and return
