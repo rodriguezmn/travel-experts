@@ -29,7 +29,8 @@ namespace TravelExperts.Team1.WebApp.Models
         public decimal? BasePrice { get; set; }
         public decimal? AgencyCommission { get; set; }
         [DisplayName("Total")]
-        [Column(TypeName = "money")]
+       
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "${0:N0}")]
         public decimal? TotalPrice { get; set; }
         public string Description { get; set; }
     }
