@@ -4,9 +4,9 @@
     ViewData["Title"] = "Register";
 }
 
-    <h1 class="text-center text-sm-center text-md-center text-lg-center text-xl-center">@ViewData["Title"]</h1>
+<h1 class="text-center text-sm-center text-md-center text-lg-center text-xl-center">@ViewData["Title"]</h1>
 
-    <h4 class="text-center text-sm-center text-md-center text-lg-center text-xl-center">Create a new account</h4>
+<h4 class="text-center text-sm-center text-md-center text-lg-center text-xl-center">Create a new account</h4>
 <br />
 <hr />
 <div class="row justify-content-center">
@@ -49,15 +49,15 @@
                 <span asp-validation-for="CustCountry" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                <label asp-for="CustHomePhone" class="control-label"></label>
-                <input asp-for="CustHomePhone" class="form-control" />
-                <span asp-validation-for="CustHomePhone" class="text-danger"></span>
-            </div>*@
+                    <label asp-for="CustHomePhone" class="control-label"></label>
+                    <input asp-for="CustHomePhone" class="form-control" />
+                    <span asp-validation-for="CustHomePhone" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
-            <label asp-for="CustBusPhone" class="control-label"></label>
-            <input asp-for="CustBusPhone" class="form-control" placeholder="Input in this format ##########" />
-            <span asp-validation-for="CustBusPhone" class="text-danger"></span>
-        </div>
+                <label asp-for="CustBusPhone" class="control-label"></label>
+                <input asp-for="CustBusPhone" class="form-control" placeholder="Input in this format ##########" />
+                <span asp-validation-for="CustBusPhone" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="CustEmail" class="control-label"></label>
                 <input asp-for="CustEmail" class="form-control" />
@@ -75,13 +75,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="ConfirmPassword" class="control-label"></label>
-                <input asp-for="ConfirmPassword" class="form-control" type="password"/>
+                <input asp-for="ConfirmPassword" class="form-control" type="password" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-            <label asp-for="AgentId" class="control-label"></label>
-            <select asp-for="AgentId" class ="form-control" asp-items="ViewBag.AgentId"></select>
-        </div>*@
+                    <label asp-for="AgentId" class="control-label"></label>
+                    <select asp-for="AgentId" class ="form-control" asp-items="ViewBag.AgentId"></select>
+                </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -90,8 +90,8 @@
 </div>
 
 @*<div class="text-center text-sm-center text-md-center text-lg-center text-xl-center">
-    <a asp-action="Edit">Update Data</a>
-</div>*@
+        <a asp-action="Edit">Update Data</a>
+    </div>*@
 
 <script>
     var password = document.getElementById("password")
@@ -110,11 +110,13 @@
 
 
 
-    
-    
-    
+
+
+
 </script>
 
+@*Marlon Rodriguez
+    Scrip to clear input fields when view loads*@
 <script>
     window.onload = function () {
         document.getElementById("passwordInput").value = "";
