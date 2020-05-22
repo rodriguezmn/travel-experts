@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TravelExperts.Team1.WebApp.Models
 {
+    // Karim Khan
+    // Added User Authentication credentials to Agents Table
     public partial class Agents
     {
         public Agents()

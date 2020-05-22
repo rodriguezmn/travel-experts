@@ -10,6 +10,8 @@ using TravelExperts.Team1.WebApp.Models;
 
 namespace TravelExperts.Team1.WebApp.Controllers
 {
+    // Karim Khan
+    // Programmed Customer Controller to signe up new customers and edit customer information
     public class CustomersController : Controller
     {
         private readonly TravelExpertsContext _context;
@@ -18,11 +20,6 @@ namespace TravelExperts.Team1.WebApp.Controllers
         {
             _context = context;
         }
-
-        
-
-
-
         // GET: Customers
         public async Task<IActionResult> Index()
         {
