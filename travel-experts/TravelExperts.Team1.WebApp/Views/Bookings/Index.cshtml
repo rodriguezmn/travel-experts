@@ -8,7 +8,7 @@
 <h1 class="text-center text-sm-center text-md-center text-lg-center text-xl-center">Booking Summary</h1>
 <br />
 <div class="row justify-content-center">
-    <table class="table col-10 table-responsive">
+    <table class="table col-11 table-responsive">
         <thead>
             <tr>
                 @*<th>
@@ -26,13 +26,13 @@
                 <th>
                     @Html.DisplayNameFor(model => model.TripEnd)
                 </th>
-                <th>
+                <th style="text-align: center">
                     @Html.DisplayNameFor(model => model.Destination)
                 </th>
-                <th>
+                <th style="text-align: center">
                     @Html.DisplayNameFor(model => model.Description)
                 </th>
-                <th>
+                <th style="text-align: center">
                     @Html.DisplayNameFor(model => model.TotalPrice)
                 </th>
 
@@ -42,33 +42,34 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.BookingId)
-                        </td>*@
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.CustomerId)
-                        </td>*@
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ItineraryNo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TripStart)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TripEnd)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Destination)
-                    </td>
+            <tr>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.BookingId)
+        </td>*@
+                @*<td>
+            @Html.DisplayFor(modelItem => item.CustomerId)
+        </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItineraryNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TripStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TripEnd)
+                </td>
+                <td style="text-align: center">
+                    @Html.DisplayFor(modelItem => item.Destination)
+                </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <th>
-                        $@Html.DisplayFor(modelItem => item.TotalPrice)
-                    </th>
-                </tr>
+                <td style="text-align: center">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td style="text-align: right; padding-right:30px">
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+
+            </tr>
 
             }
             @*Marlon Rodriguez
