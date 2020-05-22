@@ -147,7 +147,6 @@ namespace WPFApp_Cloud
             // Get all selected products from ListView
             List <Products > productsSelectedList = new List<Products>();
             var selectedProducts = myListView.SelectedItems;
-            //productsList.FindAll(p => p.ProdName == selectedProducts.)
             foreach (var item in selectedProducts)
             {
                 productsSelectedList.Add((Products)item);
@@ -165,6 +164,7 @@ namespace WPFApp_Cloud
                     statusTextBlock.Foreground = Brushes.Red;
                     statusTextBlock.Text = "Something Went Wrong!";
                     submitButton.Background = Brushes.Red;
+                    return;
                 }
                 // Status code shows object created
                 statusTextBlock.Foreground = Brushes.Green;

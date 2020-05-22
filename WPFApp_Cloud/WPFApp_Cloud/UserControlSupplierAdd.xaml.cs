@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -23,33 +25,15 @@ namespace WPFApp_Cloud
         public async void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            //// On page load, make API call to get List of Packages from database
-            //var packages = await GetPackages("https://travelexperts.azurewebsites.net/api/PackagesAPI");
-            //foreach (var package in packages)
-            //{
-            //    // Convert image name in PkgImage column to string path to find corresponding image
-            //    var images = new List<string> { "asia", "caribbean", "europe", "polynesia", "goldengate" };
-
-            //    // if package image tag is in the images list, replace that name with the path to the image
-            //    if (images.Contains($"{package.PkgImage}"))
-            //    {
-            //        package.PkgImage = $"/Images/{package.PkgImage}.jpg";
-            //    }
-            //    else
-            //    {
-            //        // else replace with default earth image
-            //        package.PkgImage = $"/Images/default.jpg";
-            //    }
-            //    DateTime EndDate = (DateTime)package.PkgEndDate;
-            //    String EndDateString = EndDate.ToShortDateString();
-            //    package.PkgEndDate = Convert.ToDateTime(EndDateString);
-
-            //}
-
-            //// Bind ListView to the Packages List from API call for display
-            //ListViewPackages.ItemsSource = packages;
+            var products = await GetProducts("https://travelexperts.azurewebsites.net/api/ProductsAPI");
+            var suppliers = await GetSuppliers("https://travelexperts.azurewebsites.net/api/SuppliersAPI");
+            productsList = products;
+            lastEntered = suppliers.Last();
+            allListView.ItemsSource = productsList;
 
         }
+        private List<Products> productsList { get; set; }
+        private Suppliers lastEntered { get; set; }
         public async void addSubmit_ClickAsync(object sender, EventArgs e)
         {
             // Clear Status text when submit button is clicked
@@ -72,12 +56,31 @@ namespace WPFApp_Cloud
                 SupName = nameTextbox.Text
             };
 
+            // Get all selected products from ListView
+            List<Products> productsSelectedList = new List<Products>();
+            var selectedProducts = allListView.SelectedItems;
+            foreach (var item in selectedProducts)
+            {
+                productsSelectedList.Add((Products)item);
+            }
+
 
             // Make Post API call to database to insert Supplier
-            var task = await PostProductAsync("https://travelexperts.azurewebsites.net/api/SuppliersAPI", supplier);
+            var task = await PostSupplierAsync("https://travelexperts.azurewebsites.net/api/SuppliersAPI", supplier);
             var items = task;
-            if (items == HttpStatusCode.Created)
+            if (items != null)
             {
+                // Add Products into ProductsSuppliers Table with newly added Supplier
+                int newSupplierID = items.SupplierId;
+                var productTask = await PostProductsForSupplierAsync(productsSelectedList, newSupplierID);
+                if (!productTask)
+                {
+                    statusTextBlock.Foreground = Brushes.Red;
+                    statusTextBlock.Text = "Something Went Wrong!";
+                    submitButton.Background = Brushes.Red;
+                    return;
+                }
+
                 // Successful insert of Supplier object into database
                 statusTextBlock.Foreground = Brushes.Green;
                 statusTextBlock.Text = "Supplier Created!";
@@ -93,14 +96,45 @@ namespace WPFApp_Cloud
             }
 
         }
-        private async Task<HttpStatusCode> PostProductAsync(string path, Suppliers supplier)
+
+        private async Task<bool> PostProductsForSupplierAsync(List<Products> productsSelectedList, int newSupplierID)
         {
             // Post API call to insert passed in Suppliers object into database. Return status code for verification
             HttpClient client = new System.Net.Http.HttpClient();
+
+            // For every Product, post into ProductsSuppliers using Product and Supplier
+            List<HttpStatusCode> codes = new List<HttpStatusCode>();
+            foreach (var product in productsSelectedList)
+            {
+                var productSupplier = new ProductsSuppliers { ProductId = product.ProductId, SupplierId = newSupplierID };
+                var content = JsonConvert.SerializeObject(productSupplier);
+                var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync("https://travelexperts.azurewebsites.net/api/ProductsSuppliersAPI", httpContent);
+                codes.Add(response.StatusCode);
+            }
+
+            bool success = true;
+            // Loop through responses, return false if one failed
+            foreach (var code in codes)
+            {
+                if (code != HttpStatusCode.Created)
+                {
+                    success = false;
+                }
+            }
+            return success;
+        }
+
+        private async Task<Suppliers> PostSupplierAsync(string path, Suppliers supplier)
+        {
+            // Post API call to insert passed in Suppliers object into database. Return status code for verification
+            HttpClient client = new System.Net.Http.HttpClient();
+            supplier.SupplierId = lastEntered.SupplierId + 1;
             var content = JsonConvert.SerializeObject(supplier);
             var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(path, httpContent);
-            return response.StatusCode;
+            var returnContent = JsonConvert.DeserializeObject<Suppliers>(await response.Content.ReadAsStringAsync());
+            return returnContent;
         }
         private async Task<List<Products>> GetProducts(string path)
         {
@@ -114,6 +148,17 @@ namespace WPFApp_Cloud
             }
             return pdts;
         }
-        //public List<Products> ProductListAPII { get; set; }
+        private async Task<List<Suppliers>> GetSuppliers(string path)
+        {
+            // Get List of Suppliers Objects from Get Request
+            HttpClient client = new System.Net.Http.HttpClient();
+            List<Suppliers> supps = null;
+            HttpResponseMessage response = await client.GetAsync(path);
+            if (response.IsSuccessStatusCode)
+            {
+                supps = JsonConvert.DeserializeObject<List<Suppliers>>(await response.Content.ReadAsStringAsync());
+            }
+            return supps;
+        }
     }
 }

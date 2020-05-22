@@ -142,15 +142,15 @@ namespace WPFApp_Cloud
                 // get selected package item from ComboBox and make Delete API call
                 Packages selectedPackage = (Packages)packagesComboBox.SelectedItem;
                 int packageID = packageList.Find(p => p.PackageId == selectedPackage.PackageId).PackageId;
-                //try
-                //{
-                //    bool deleteConstraint = await DeletePackagesProductsSuppliers(packageID);
-                //    if (!deleteConstraint)
-                //    {
-                //        statusTextBlock.Foreground = Brushes.Red;
-                //        statusTextBlock.Text = "Something went wrong. Please try Again!";
-                //        return;
-                //    }
+                try
+                {
+                    bool deleteConstraint = await DeletePackagesProductsSuppliers(packageID);
+                    if (!deleteConstraint)
+                    {
+                        statusTextBlock.Foreground = Brushes.Red;
+                        statusTextBlock.Text = "Something went wrong. Please try Again!";
+                        return;
+                    }
                     var returnPackage = await DeletePackageAsync("https://travelexperts.azurewebsites.net/api/PackagesAPI", packageID);
                     if (returnPackage != null)
                     {
@@ -177,16 +177,16 @@ namespace WPFApp_Cloud
                         statusTextBlock.Foreground = Brushes.Red;
                         statusTextBlock.Text = "Unable to Delete Package!";
                     }
-                //}
-                //catch (Exception)
-                //{
-
-                //    statusTextBlock.Foreground = Brushes.Red;
-                //    statusTextBlock.Text = "Error Occured. Please Try Again!";
-                //}
-                
-
             }
+                catch (Exception)
+            {
+
+                statusTextBlock.Foreground = Brushes.Red;
+                statusTextBlock.Text = "Error Occured. Please Try Again!";
+            }
+
+
+        }
             else
             {
                 // User changes their mind on deletion
@@ -242,7 +242,7 @@ namespace WPFApp_Cloud
             if (decimal.Parse(costTextbox.Text) < decimal.Parse(commissionTextbox.Text))
             {
                 statusTextBlock.Foreground = Brushes.DarkOrange;
-                statusTextBlock.Text = "Base Price cannot be less than Commmission!!";
+                statusTextBlock.Text = "Base Price cannot be less than Commission!!";
                 editButton.Background = Brushes.DarkOrange;
                 return;
             }
@@ -259,8 +259,16 @@ namespace WPFApp_Cloud
                 PkgImage = image.Text,
                 PkgAgencyCommission = (decimal?)double.Parse(commissionTextbox.Text),
             };
+            // Get all selected products from ListView
+            List<Products> productsSelectedList = new List<Products>();
+            var selectedProducts = allListView.SelectedItems;
+            foreach (var item in selectedProducts)
+            {
+                productsSelectedList.Add((Products)item);
+            }
 
-            // Make PUT API call and return status code
+            // Make PUT API calls and return status code
+            var statusCode = await PutProductsForPackage(productsSelectedList, package.PackageId);
             var task = await PutPackageAsync("https://travelexperts.azurewebsites.net/api/PackagesAPI", package);
             if (task == HttpStatusCode.NoContent)
             {
@@ -384,7 +392,7 @@ namespace WPFApp_Cloud
             // Get List of Products
             List<Products> productsFull = null;
             HttpResponseMessage responseFromProducts = await client.GetAsync("https://travelexperts.azurewebsites.net/api/ProductsAPI");
-            productsFull = JsonConvert.DeserializeObject<List<Products>>(await responseFromProductsSuppliers.Content.ReadAsStringAsync());
+            productsFull = JsonConvert.DeserializeObject<List<Products>>(await responseFromProducts.Content.ReadAsStringAsync());
 
             // Filter Products List to include only the ones which are associated with the ProductSuppliers for the package
             List<Products> productsFiltered = new List<Products>();
@@ -448,16 +456,76 @@ namespace WPFApp_Cloud
             bool success = true;
             foreach (var code in codes)
             {
-                if (status == HttpStatusCode.Accepted || status == HttpStatusCode.OK || status == HttpStatusCode.NoContent)
+                if (code != HttpStatusCode.Accepted && code == HttpStatusCode.OK && code == HttpStatusCode.NoContent)
                 {
-
+                    success = false;
                 }
             }
-            if (status == HttpStatusCode.Accepted || status == HttpStatusCode.OK || status == HttpStatusCode.NoContent)
+            return success;
+        }
+        private async Task<bool> PostProductsForPackageAsync(List<Products> products, int packageID)
+        {
+            HttpClient client = new System.Net.Http.HttpClient();
+
+            // Get All ProductsSuppliers into List
+            List<ProductsSuppliers> prodsSuppsListFull;
+            HttpResponseMessage response = await client.GetAsync("https://travelexperts.azurewebsites.net/api/ProductsSuppliersAPI");
+            prodsSuppsListFull = JsonConvert.DeserializeObject<List<ProductsSuppliers>>(await response.Content.ReadAsStringAsync());
+
+            // Get all ProductsSuppliers Id's for products in the list
+            List<int> inputProductIds = new List<int>();
+            foreach (var item in products)
+            {
+                inputProductIds.Add(item.ProductId);
+            }
+
+            // Filter ProductsSuppliers List for only products that are in input products
+            var PerProductSupplier = new List<ProductsSuppliers>();
+            List<ProductsSuppliers> prodsSuppsListFiltered = new List<ProductsSuppliers>();
+
+            // Assign the first ProductSupplierId to the Product which package uses
+            foreach (int productid in inputProductIds)
+            {
+                prodsSuppsListFiltered.Add(prodsSuppsListFull.Find(ps => ps.ProductId == productid));
+            }
+
+
+            // Got filtered list of productSupplierIds, now post this list 1 by 1 to Packages_Products_Suppliers
+            List<HttpStatusCode> codes = new List<HttpStatusCode>();
+            foreach (var productSupplier in prodsSuppsListFiltered)
+            {
+                var newPackageProductSupplier = new PackagesProductsSuppliers { PackageId = packageID, ProductSupplierId = productSupplier.ProductSupplierId };
+                var content = JsonConvert.SerializeObject(newPackageProductSupplier);
+                var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
+                HttpResponseMessage responseFromPost = await client.PostAsync("https://travelexperts.azurewebsites.net/api/PackagesProductsSuppliersAPI", httpContent);
+                codes.Add(responseFromPost.StatusCode);
+            }
+
+            // return true if all status codes are OK otherwise return false
+            bool IsGoodRequest = true;
+            foreach (HttpStatusCode code in codes)
+            {
+                if (code != HttpStatusCode.Created)
+                {
+                    IsGoodRequest = false;
+                }
+            }
+            return IsGoodRequest;
+
+
+        }
+        private async Task<bool> PutProductsForPackage(List<Products> products, int packageID)
+        {
+            var deleteReturn = await DeletePackagesProductsSuppliers(packageID);
+            var postReturn = await PostProductsForPackageAsync(products, packageID);
+            if (postReturn && deleteReturn)
             {
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -44,10 +44,10 @@ namespace TravelExperts.Team1.WebApp.Controllers
         // PUT: api/PackagesProductsSuppliersAPI/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPackagesProductsSuppliers(int id, PackagesProductsSuppliers packagesProductsSuppliers)
+        [HttpPut("{id1},{id2}")]
+        public async Task<IActionResult> PutPackagesProductsSuppliers(int id1, int id2, PackagesProductsSuppliers packagesProductsSuppliers)
         {
-            if (id != packagesProductsSuppliers.PackageId)
+            if (id1 != packagesProductsSuppliers.PackageId)
             {
                 return BadRequest();
             }
@@ -60,7 +60,7 @@ namespace TravelExperts.Team1.WebApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PackagesProductsSuppliersExists(id))
+                if (!PackagesProductsSuppliersExists(id1, id2))
                 {
                     return NotFound();
                 }
@@ -118,6 +118,10 @@ namespace TravelExperts.Team1.WebApp.Controllers
         private bool PackagesProductsSuppliersExists(int id)
         {
             return _context.PackagesProductsSuppliers.Any(e => e.PackageId == id);
+        }
+        private bool PackagesProductsSuppliersExists(int id1, int id2)
+        {
+            return _context.PackagesProductsSuppliers.Any(e => e.PackageId == id1 && e.ProductSupplierId == id2);
         }
     }
 }

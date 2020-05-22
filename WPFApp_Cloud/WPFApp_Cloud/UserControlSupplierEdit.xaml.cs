@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -27,7 +28,11 @@ namespace WPFApp_Cloud
             supplierList = suppliers;
             suppliersComboBox.ItemsSource = suppliers;
 
+            // Display all Products to choose from
+            var products = await GetProducts("https://travelexperts.azurewebsites.net/api/ProductsAPI");
+            allListView.ItemsSource = products;
         }
+        private List<Products> productsList { get; set; }
 
         // Class property to store Suppliers List from Get Request
         private List<Suppliers> supplierList { get; set; }
@@ -66,6 +71,10 @@ namespace WPFApp_Cloud
 
                     int supplierID = supplierList.Find(p => p.SupName == selectedSupplier.SupName).SupplierId;
 
+                    // Make Delete API call to ProductsSuppliers table
+                    var returnStatus = await DeleteProductsSuppliersAsync(supplierID);
+
+
                     // Make Delete API Call and get returned deleted Supplier object
                     var returnSupplier = await DeleteSupplierAsync("https://travelexperts.azurewebsites.net/api/SuppliersAPI", supplierID);
                     if (returnSupplier != null)
@@ -74,6 +83,7 @@ namespace WPFApp_Cloud
                         statusTextBlock.Foreground = Brushes.Green;
                         statusTextBlock.Text = $"Supplier '{returnSupplier.SupName}' Deleted!";
                         nameTextbox.Text = "";
+                        
                     }
                     else
                     {
@@ -96,16 +106,14 @@ namespace WPFApp_Cloud
                 return;
             }
         }
+
+
+
         public async void editSubmit_ClickAsync(object sender, EventArgs e)
         {
             // get current selected Supplier Object from ComboBox
             Suppliers selectedSupplier = (Suppliers)suppliersComboBox.SelectedItem;
 
-            // If user did not change anything, simply return
-            if (selectedSupplier.SupName == nameTextbox.Text)
-            {
-                return;
-            }
 
             // Clear Status Text
             statusTextBlock.Text = "";
@@ -128,14 +136,22 @@ namespace WPFApp_Cloud
                 SupName = nameTextbox.Text,
             };
 
+            // Get all selected products from ListView
+            List<Products> productsSelectedList = new List<Products>();
+            var selectedProducts = allListView.SelectedItems;
+            foreach (var item in selectedProducts)
+            {
+                productsSelectedList.Add((Products)item);
+            }
             // Put API request to Update Supplier Object in database. return statuscode
-            var task = await PutSupplierAsync("https://travelexperts.azurewebsites.net/api/SuppliersAPI", supplier);
-            if (task == HttpStatusCode.NoContent)
+            var taskFromAuxillary = await ReplaceProductsSupplierAsync(productsSelectedList, supplier);
+            var task = await PutSupplierAsync(supplier);
+            if (task == true)
             {
                 // Object successfully updated
                 // Update Product in productList
                 int oldSupplierIndex = supplierList.FindIndex(p => p.SupplierId == supplier.SupplierId);
-                supplierList[oldSupplierIndex] = supplier;
+                //supplierList[oldSupplierIndex] = supplier;
                 suppliersComboBox.SelectedItem = supplier;
 
                 // Set Edited Message and Clear
@@ -151,6 +167,9 @@ namespace WPFApp_Cloud
             }
 
         }
+
+
+
         private async Task<Suppliers> GetSupplier(string path)
         {
             // Get Suppliers object from Get Request, path includes SupplierId
@@ -174,15 +193,6 @@ namespace WPFApp_Cloud
                 supps = JsonConvert.DeserializeObject<List<Suppliers>>(await response.Content.ReadAsStringAsync());
             }
             return supps;
-        }
-        private async Task<HttpStatusCode> PutSupplierAsync(string path, Suppliers supplier)
-        {
-            // Update Suppliers Object in PUT Request
-            HttpClient client = new System.Net.Http.HttpClient();
-            var content = JsonConvert.SerializeObject(supplier);
-            var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PutAsync(path + "/" + supplier.SupplierId, httpContent);
-            return response.StatusCode;
         }
         private async Task<Suppliers> DeleteSupplierAsync(string path, int supplierID)
         {
@@ -218,6 +228,98 @@ namespace WPFApp_Cloud
             var productsList = productsListFull.FindAll(p => productIdList.Contains(p.ProductId));
 
             return productsList;
+        }
+        private async Task<List<Products>> GetProducts(string path)
+        {
+            // Get List of Products Objects from Get Request, path does not include ProductsID
+            HttpClient client = new System.Net.Http.HttpClient();
+            List<Products> pdts = null;
+            HttpResponseMessage response = await client.GetAsync(path);
+            if (response.IsSuccessStatusCode)
+            {
+                pdts = JsonConvert.DeserializeObject<List<Products>>(await response.Content.ReadAsStringAsync());
+            }
+            return pdts;
+        }
+        private async Task<bool> DeleteProductsSuppliersAsync(int supplierID)
+        {
+            HttpClient client = new System.Net.Http.HttpClient();
+
+            // Get all ProductsSuppliers from API
+            List<ProductsSuppliers> prodSuppsFull;
+            var response = await client.GetAsync("https://travelexperts.azurewebsites.net/api/ProductsSuppliersAPI");
+            prodSuppsFull = JsonConvert.DeserializeObject<List<ProductsSuppliers>>(await response.Content.ReadAsStringAsync());
+
+            // Filter List to include only those with supplierId
+            var prodSuppsFiltered = prodSuppsFull.FindAll(ps => ps.SupplierId == supplierID);
+
+            // for each ProductsSuppliers object in list, delete from database
+            var codes = new List<HttpStatusCode>();
+            foreach (var item in prodSuppsFiltered)
+            {
+                var responseFromProdSupps = await client.DeleteAsync($"https://travelexperts.azurewebsites.net/api/ProductsSuppliersAPI/{item.ProductSupplierId}");
+                codes.Add(responseFromProdSupps.StatusCode);
+            }
+
+            bool success = true;
+            foreach (var code in codes)
+            {
+                if (code != HttpStatusCode.Accepted && code == HttpStatusCode.OK && code == HttpStatusCode.NoContent)
+                {
+                    success = false;
+                }
+            }
+            return success;
+        }
+        private async Task<bool> ReplaceProductsSupplierAsync(List<Products> productsSelectedList, Suppliers supplier)
+        {
+            // Delete from ProductsSuppliers table the Add again
+            var deleteReturn = await DeleteProductsSuppliersAsync(supplier.SupplierId);
+            var postReturn = await PostProductsForSupplierAsync(productsSelectedList, supplier.SupplierId);
+            if (postReturn && deleteReturn)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private async Task<bool> PostProductsForSupplierAsync(List<Products> productsSelectedList, int newSupplierID)
+        {
+            // Post API call to insert passed in Suppliers object into database. Return status code for verification
+            HttpClient client = new System.Net.Http.HttpClient();
+
+            // For every Product, post into ProductsSuppliers using Product and Supplier
+            List<HttpStatusCode> codes = new List<HttpStatusCode>();
+            foreach (var product in productsSelectedList)
+            {
+                var productSupplier = new ProductsSuppliers { ProductId = product.ProductId, SupplierId = newSupplierID };
+                var content = JsonConvert.SerializeObject(productSupplier);
+                var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync("https://travelexperts.azurewebsites.net/api/ProductsSuppliersAPI", httpContent);
+                codes.Add(response.StatusCode);
+            }
+
+            bool success = true;
+            // Loop through responses, return false if one failed
+            foreach (var code in codes)
+            {
+                if (code != HttpStatusCode.Created)
+                {
+                    success = false;
+                }
+            }
+            return success;
+        }
+        private async Task<bool> PutSupplierAsync(Suppliers supplier)
+        {
+            // Post API call to insert passed in Suppliers object into database. Return status code for verification
+            HttpClient client = new System.Net.Http.HttpClient();
+            var content = JsonConvert.SerializeObject(supplier);
+            var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PutAsync($"https://travelexperts.azurewebsites.net/api/SuppliersAPI/{supplier.SupplierId}", httpContent);
+            return true;
         }
     }
 }

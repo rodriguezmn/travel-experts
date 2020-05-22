@@ -33,11 +33,12 @@
                     <StackPanel Grid.Row="1" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Top" Width="390" >
                         <TextBlock x:Name="statusTextBlock" Height="27"   FontSize="20" FontWeight="Bold" Text="" />
                     </StackPanel>
-                    <StackPanel Grid.Row="2" Width="400" HorizontalAlignment="Left" Margin="50 20">
+                    <ScrollViewer Grid.Row="2">
+                    <StackPanel  Width="400" HorizontalAlignment="Left" Margin="50 20">
                         <Label Content="Edit Supplier" HorizontalAlignment="Center" FontSize="20" />
                         <TextBox x:Name="nameTextbox" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Supplier Name" Text="{Binding Path=SupName, Mode=TwoWay}" TextWrapping="Wrap" Width="300" Margin="0 10"/>
-                        <Label Content="Products for this Supplier" HorizontalAlignment="Center" FontSize="10" />
-                        <ListView x:Name="myListView" SelectionMode="Multiple" Height="50" Width="300">
+                        <Label Content="Products for this Supplier" HorizontalAlignment="Center" FontSize="20" Margin="0 20 0 0" />
+                        <ListView x:Name="myListView" SelectionMode="Multiple" Height="150" Width="300">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -46,11 +47,22 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-                        <StackPanel VerticalAlignment="Bottom" Width="300" Margin="0 20 0 0">
+                        <Label Content="Choose new Products Set for Supplier" HorizontalAlignment="Center" FontSize="20" Margin="0 20 0 0" />
+                        <ListView x:Name="allListView" SelectionMode="Multiple" Height="150" Width="300">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding ProdName}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <StackPanel VerticalAlignment="Bottom" Width="300" Margin="0 40 0 0">
                             <Button x:Name="editButton" Click="editSubmit_ClickAsync" Content="Edit Supplier" />
                             <Button x:Name="deleteButton" Click="deleteSubmit_ClickAsync" Content="Delete Supplier" Background="Red" Margin="0 20 0 0" />
                         </StackPanel>
                     </StackPanel>
+                    </ScrollViewer>
                 </Grid>
             </materialDesign:TransitioningContent>
         </Border>
