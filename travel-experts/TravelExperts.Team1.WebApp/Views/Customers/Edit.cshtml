@@ -1,12 +1,12 @@
 ﻿@model TravelExperts.Team1.WebApp.Models.Customers
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Customer Info";
 }
 
-<h1>Edit</h1>
+    <h1>@ViewData["Title"]</h1>
 
-<h4>Customers</h4>
+@*<h4>Customers</h4>*@
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -48,11 +48,11 @@
                 <input asp-for="CustCountry" class="form-control" />
                 <span asp-validation-for="CustCountry" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CustHomePhone" class="control-label"></label>
-                <input asp-for="CustHomePhone" class="form-control" />
-                <span asp-validation-for="CustHomePhone" class="text-danger"></span>
-            </div>
+            @*<div class="form-group">
+            <label asp-for="CustHomePhone" class="control-label"></label>
+            <input asp-for="CustHomePhone" class="form-control" />
+            <span asp-validation-for="CustHomePhone" class="text-danger"></span>
+        </div>*@
             <div class="form-group">
                 <label asp-for="CustBusPhone" class="control-label"></label>
                 <input asp-for="CustBusPhone" class="form-control" />
@@ -70,14 +70,19 @@
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" class="form-control" type="password"/>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AgentId" class="control-label"></label>
-                <select asp-for="AgentId" class="form-control" asp-items="ViewBag.AgentId"></select>
-                <span asp-validation-for="AgentId" class="text-danger"></span>
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" type="password" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
+            @*<div class="form-group">
+            <label asp-for="AgentId" class="control-label"></label>
+            <select asp-for="AgentId" class="form-control" asp-items="ViewBag.AgentId"></select>
+            <span asp-validation-for="AgentId" class="text-danger"></span>
+        </div>*@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -85,9 +90,24 @@
     </div>
 </div>
 
-<div>
+@*<div>
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@
+<script>
+    var password = document.getElementById("password")
+        , confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
