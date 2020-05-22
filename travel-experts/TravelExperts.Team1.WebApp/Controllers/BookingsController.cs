@@ -25,7 +25,7 @@ namespace TravelExperts.Team1.WebApp.Controllers
         {
 
             // Marlon Rodriguez
-            //  Called method to get user Id
+            //  Called method to get CustomerId from Customers table
 
             int userId = BookingManager.GetUserId(User.Identity.Name);
             
