@@ -18,6 +18,7 @@ namespace TravelExperts.Team1.WebApp.Models
         [DisplayName("Itinerary No.")]
         public double? ItineraryNo { get; set; }
         public double? TravelerCount { get; set; }
+        //convert date time into new format dropping the hours 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [DisplayName("Trip Starts")] 
         public DateTime? TripStart { get; set; }
@@ -29,7 +30,7 @@ namespace TravelExperts.Team1.WebApp.Models
         public decimal? BasePrice { get; set; }
         public decimal? AgencyCommission { get; set; }
         [DisplayName("Total")]
-       
+        // formatting total column by adding dollar sign and dropping decimals
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "${0:N0}")]
         public decimal? TotalPrice { get; set; }
         public string Description { get; set; }

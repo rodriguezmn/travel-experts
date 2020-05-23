@@ -15,8 +15,11 @@ namespace TravelExperts.Team1.WebApp.Models
         public int PackageId { get; set; }
         public string PkgName { get; set; }
         [DisplayName("Trip Start Date")]
+        // formatting datetime into Date only
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString ="{0:yyyy-MM-dd}" )]
         public DateTime? PkgStartDate { get; set; }
+
+        // formatting datetime into Date only
         [DisplayName("Trip End Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? PkgEndDate { get; set; }
@@ -26,7 +29,7 @@ namespace TravelExperts.Team1.WebApp.Models
         public string PkgImage { get; set; }
         public decimal? PkgAgencyCommission { get; set; }
 
-        // Total price to display to customer
+        // Total price to display to customer; add$ and  covert into intenger
         [DisplayName("Price")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "${0:N0}")]
         public decimal PkgTotalPrice { get; set; }
