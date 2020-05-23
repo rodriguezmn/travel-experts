@@ -7,8 +7,10 @@ using TravelExperts.Team1.WebApp.Models;
 
 namespace TravelExperts.Team1.WebApp.Managers
 {
+    //Irada Shamilova: manager to pull Booking Details and Bookings from the DB in joint view 
     public class BookingManager
-    {
+    {   
+        // Irada: Get all booking Details from DB
         public static List<BookingDetails> GetAllBookingDetails()
         {
             var context = new TravelExpertsContext();
@@ -16,6 +18,7 @@ namespace TravelExperts.Team1.WebApp.Managers
             return listOfBookingDetails.ToList();
         }
 
+        // Irada: Get booking Details from DB by Booking ID
         public static List<BookingDetails> GetAllByBookingId(int id)
         {
             var context = new TravelExpertsContext();
@@ -25,6 +28,7 @@ namespace TravelExperts.Team1.WebApp.Managers
             return filteredList;
         }
 
+        // Irada: Get all booking Details from DB by Customer ID from Bookings table (joining 2 tables)
         public static List<BookingDetails> GetAllByBCustomerId(int id)
         {
             var context = new TravelExpertsContext();

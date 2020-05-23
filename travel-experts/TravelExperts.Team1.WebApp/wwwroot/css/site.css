@@ -71,6 +71,7 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
+/*Irada: Adjustments to bootstrap Navbar styling*/
 .navbar.navbar-inverse.navbar-fixed-top {
     background-color: #004b4f;
     border-color: #004b4f;
@@ -93,6 +94,7 @@ body {
     margin-bottom: 20px;
 }
 
+/*Irada: Parallax effect styling using css*/
 .jumbotron {
     background-image: url('../img/Alex-green.jpg');
     background-attachment: fixed;
@@ -165,7 +167,7 @@ element {
     margin-right: 0.7vw;
 }
 
-/* ------------Fade-in Animation-------------- */
+/* ------------Irada: CSS Animations-------------- */
 
 .animation-element.slide-up {
     opacity: 0;
@@ -194,7 +196,6 @@ element {
     position: relative;
 }
 
-/* FadeInUp - Animation */
 
 @keyframes slide-up {
     from {

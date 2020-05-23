@@ -9,6 +9,7 @@ using TravelExperts.Team1.WebApp.Models;
 
 namespace TravelExperts.Team1.WebApp.Controllers
 {
+    // Irada: controller to get Packages from DB
     public class PackagesController : Controller
     {
         public ActionResult Index()
@@ -110,37 +111,40 @@ namespace TravelExperts.Team1.WebApp.Controllers
         // POST: Packages/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PackageId,PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgImage,PkgAgencyCommission")] Packages packages)
-        {
-            if (id != packages.PackageId)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(packages);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PackagesExists(packages.PackageId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(packages);
-        }
+        //Irada commented Edit posts for security reasons
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("PackageId,PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgImage,PkgAgencyCommission")] Packages packages)
+        //{
+        //    if (id != packages.PackageId)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(packages);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!PackagesExists(packages.PackageId))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(packages);
+        //}
 
         // GET: Packages/Delete/5
         public async Task<IActionResult> Delete(int? id)

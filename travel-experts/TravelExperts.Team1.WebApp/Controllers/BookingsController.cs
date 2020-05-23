@@ -29,6 +29,9 @@ namespace TravelExperts.Team1.WebApp.Controllers
 
             int userId = BookingManager.GetUserId(User.Identity.Name);
             
+            // Irada Shamilova
+            // Created BookingViewModel & this Controller to join 2 tables Booking and Booking Details that can now be filtered by CustomerID
+
             var customerBookings = BookingManager.GetAllByBCustomerId(userId);
             var viewModels = customerBookings.Select(a => new BookingsViewModel
             {

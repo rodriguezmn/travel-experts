@@ -8,6 +8,7 @@ namespace TravelExperts.Team1.WebApp.Managers
 {
     public class PackageManager
     {
+        //Irada Shamilova: manager to pull Packages from the DB 
         public static List<Packages> GetAllPackages()
         {
             var context = new TravelExpertsContext();
@@ -15,6 +16,7 @@ namespace TravelExperts.Team1.WebApp.Managers
             return packagesList.ToList();
         }
 
+        //Irada Shamilova: manager to pull Current Packages from the DB based on current date
         public static List<Packages> GetAllCurrent()
         {
             var context = new TravelExpertsContext();
