@@ -19,7 +19,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input id="passwordInput" asp-for="Password" class="form-control"  type="password" />
+                <input id="passwordInput" asp-for="Password" class="form-control" type="password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -30,10 +30,11 @@
 </div>
 
 @*<div>
-    <a asp-action="Index">Back to List</a>
-</div>*@
+        <a asp-action="Index">Back to List</a>
+    </div>*@
 
-
+@*Marlon Rodriguez
+    Scrip to clear input fields when view loads*@
 <script>
     window.onload = function () {
         document.getElementById("userNameInput").value = "";
